@@ -1,0 +1,21 @@
+.root {
+    -fx-background-color: white;
+}
+#header {
+    -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #00c6fb, #005bea);
+}
+.text-field, .password-field {
+    -fx-border-color: #3382FE;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+#loginBtn {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #00c6fb, #005bea); /* Màu nền gradient */
+    -fx-border-radius: 50px; /* Bo góc 50px */
+    -fx-background-radius: 50px; /* Bo góc cho nền */
+    -fx-text-fill: white; /* Màu chữ trắng (tuỳ chỉnh) */
+    /*-fx-padding: 10px 20px; !* Padding cho nút *!*/
+    -fx-font-size: 22px; /* Cỡ chữ (tuỳ chỉnh) */
+    -fx-font-weight: bold; /* Đậm chữ (tuỳ chỉnh) */
+}

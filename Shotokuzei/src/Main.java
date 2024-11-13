@@ -1,29 +1,27 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
-
 
 public class Main extends Application {
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        StackPane  layout = new StackPane();
-        Button btn = new Button("hello");
-        btn.setOnAction(actionEvent -> {
-            System.out.print("blabla");
-        });
-        layout.getChildren().add(btn);
-        Scene scene = new Scene(layout,300,300);
-        stage.setScene(scene);
-        stage.setTitle("heloo JavaFX");
-        stage.show();
-
+        try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            String css = this.getClass().getResource("/view/css/style.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+//            stage.setFullScreen(true);
+            stage.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
