@@ -18,7 +18,6 @@ public class Main extends Application {
             String css = this.getClass().getResource("/view/css/style.css").toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
-//            stage.setFullScreen(true);
             stage.show();
         }catch (Exception e){
             e.printStackTrace();
