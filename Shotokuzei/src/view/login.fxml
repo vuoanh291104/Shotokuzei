@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginController">
    <children>
       <ImageView fitHeight="630.0" fitWidth="635.0" layoutX="40.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -63,7 +63,7 @@
             </Text>
          </children>
       </GridPane>
-      <Button fx:id="loginBtn" layoutX="1201.0" layoutY="785.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="192.0" text="ĐĂNG NHẬP" textFill="WHITE">
+      <Button fx:id="loginBtn" layoutX="1201.0" layoutY="785.0" mnemonicParsing="false" onAction="#HandleLogin" prefHeight="64.0" prefWidth="192.0" text="ĐĂNG NHẬP" textFill="WHITE">
          <font>
             <Font name="Calibri" size="27.0" />
          </font>
