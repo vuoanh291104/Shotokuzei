@@ -11,12 +11,19 @@
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
 }
+#searchBox {
+    -fx-border-color: #3382FE;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+}
 #loginBtn,
 #submitBtn,
 #chooseYear,
 #settlementBtn,
 #tryCacuBtn,
-#changePassBtn
+#changePassBtn,
+#chooseMonth
 {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #00c6fb, #005bea); /* Màu nền gradient */
     -fx-border-radius: 50px; /* Bo góc 50px */
@@ -147,3 +154,7 @@
     -fx-background-color: transparent; /* Nền trong suốt */
 }
 
+#changePass:hover,
+#editInfo:hover{
+    -fx-cursor: HAND;
+}

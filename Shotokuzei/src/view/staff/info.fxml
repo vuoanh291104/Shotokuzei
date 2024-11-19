@@ -74,7 +74,7 @@
             <Font name="Arial Bold" size="22.0" />
          </font>
       </Button>
-      <ImageView fx:id="editInfo" fitHeight="46.0" fitWidth="46.0" layoutX="1177.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="editInfo" fitHeight="46.0" fitWidth="46.0" layoutX="1177.0" layoutY="281.0" onMouseClicked="#EditOnClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/edit.png" />
          </image>
