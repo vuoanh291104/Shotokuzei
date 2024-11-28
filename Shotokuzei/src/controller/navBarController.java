@@ -6,7 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import org.w3c.dom.Text;
+import javafx.scene.text.Text;
+
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +17,19 @@ public class navBarController {
     @FXML
     private AnchorPane generalScene;
     private Button selectedButton;
+    @FXML
+    private Text nameDepartment;
+    private simpleDepartmentController simpleDepartmentController;
+
+    public void SetDepartmentName(String nd){
+        if(nameDepartment!=null){
+            if(nd!=null)
+                nameDepartment.setText(nd);
+            else System.out.print("check ten");
+        }else
+            System.out.print("errr");
+
+    }
 
     public void LoadView(String idScene, String folder) throws IOException {
         try {
@@ -51,6 +65,15 @@ public class navBarController {
     public void ChangePassOnClick(){
         try{
             LoadView("changePass","");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void MoveOnNotification(){
+        try{
+            LoadView("message","accountant");
         }
         catch (Exception e){
             e.printStackTrace();

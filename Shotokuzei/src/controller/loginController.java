@@ -17,7 +17,7 @@ public class loginController {
     private Parent root;
 
     public void HandleLogin (ActionEvent event) throws IOException{
-        root = FXMLLoader.load(getClass().getResource("/view/departmentHead/general.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/view/accountant/listDepartments.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/view/css/style.css").toExternalForm());
