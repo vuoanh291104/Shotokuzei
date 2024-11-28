@@ -23,7 +23,12 @@
 #settlementBtn,
 #tryCacuBtn,
 #changePassBtn,
-#chooseMonth
+#chooseMonth,
+.department,
+#addNewDepartment,
+#addNewStaff,
+#cacuTax,
+#approveBtn
 {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #00c6fb, #005bea); /* Màu nền gradient */
     -fx-border-radius: 50px; /* Bo góc 50px */
@@ -35,13 +40,22 @@
     -fx-cursor: hand;
 }
 
+#addNewDepartment{
+    -fx-border-radius: 10px; /* Bo góc 50px */
+    -fx-background-radius: 10px;
+}
 .primary-btn {
     -fx-border-radius: 50px; /* Bo góc 50px */
     -fx-background-radius: 50px;
     -fx-cursor: hand;
     -fx-background-color: white;
 }
-
+#updateBtn {
+    -fx-border-radius: 50px; /* Bo góc 50px */
+    -fx-background-radius: 50px;
+    -fx-cursor: hand;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #a1c4fd 0%, #c2e9fb 100%);
+}
 .selectedBtn {
     -fx-border-radius: 50px; /* Bo góc 50px */
     -fx-background-radius: 50px;
@@ -158,3 +172,32 @@
 #editInfo:hover{
     -fx-cursor: HAND;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+    -fx-border-width: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.check-box {
+    -fx-background-color: transparent; /* Nền trong suốt */
+    -fx-border-color: #0965F4;         /* Viền màu xanh */
+    -fx-border-width: 2;              /* Độ rộng viền */
+    -fx-border-radius: 4;             /* Bo góc viền */
+    -fx-padding: 5;                   /* Khoảng cách nội dung */
+    -fx-cursor: hand;                 /* Hiệu ứng con trỏ */
+}
+
+/* Xóa nền mặc định của ô vuông bên cạnh */
+.check-box > .box {
+    -fx-background-color: transparent; /* Nền trong suốt */
+    /*-fx-border-color: #0965F4;         !* Viền màu xanh *!*/
+    -fx-border-width: 2;              /* Độ rộng viền */
+    -fx-border-radius: 2;             /* Bo góc */
+}
+
+
+
