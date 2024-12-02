@@ -1,40 +1,40 @@
 package model;
 
 public class User {
-    private int uid;
-    private String uname;
-    private String password;
+   private static User instance;
+   private String userId;
+    private String role;
 
-    public User() {
+
+    private User(){}
+
+    public static User getInstance() {
+        if(instance == null){
+            instance = new User();
+        }
+        return instance;
     }
 
-    public User(int uid, String uname, String password) {
-        this.uid = uid;
-        this.uname = uname;
-        this.password = password;
+    public static void setInstance(User instance) {
+        User.instance = instance;
     }
 
-    public int getUid() {
-        return uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getUname() {
-        return uname;
+    public String getRole() {
+        return role;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 }

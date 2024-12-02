@@ -53,18 +53,18 @@
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <TextField prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" />
-            <TextField layoutX="293.0" layoutY="13.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField layoutX="293.0" layoutY="146.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="phone" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" />
+            <TextField fx:id="address" layoutX="293.0" layoutY="13.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="email" layoutX="293.0" layoutY="146.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Spinner fx:id="dependent" editable="true" prefHeight="64.0" prefWidth="460.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Text fill="#0965f4" layoutX="343.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn A" wrappingWidth="268.3984375">
+      <Text fx:id="fullName" fill="#0965f4" layoutX="343.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn A" wrappingWidth="268.3984375">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
       </Text>
-      <Text fill="#0965f4" layoutX="611.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2000" wrappingWidth="268.3984375">
+      <Text fx:id="birthDay" fill="#0965f4" layoutX="611.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="01/01/2000" wrappingWidth="268.3984375">
          <font>
             <Font name="Arial" size="24.0" />
          </font>
