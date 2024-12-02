@@ -7,9 +7,16 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.NhanVien;
+import model.Person;
+import model.User;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 public class navBarController {
@@ -19,8 +26,40 @@ public class navBarController {
     private Button selectedButton;
     @FXML
     private Text nameDepartment;
+    @FXML
+    private Text fullName;
     private simpleDepartmentController simpleDepartmentController;
 
+    public void initialize(){
+        getNameUser();
+    }
+    public void getNameUser(){
+        String table ="";
+        if(User.getInstance().getRole().equals("Nhan Vien")){
+            table ="taxdb.employees";
+        }else if(User.getInstance().getRole().equals("Truong phong")){
+            table="taxdb.managers";
+        }
+        System.out.print(table);
+        ConnectDB connectDB = new ConnectDB();
+        Connection conn = connectDB.connect();
+        String query = "select fullname from "+table+" where user_id=?";
+        PreparedStatement pstm = null;
+
+        Person person = new Person();
+        try{
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1,User.getInstance().getUserId());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()){
+                person.setName(rs.getString("fullname"));
+            }
+
+            fullName.setText(person.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void SetDepartmentName(String nd){
         if(nameDepartment!=null){
             if(nd!=null)

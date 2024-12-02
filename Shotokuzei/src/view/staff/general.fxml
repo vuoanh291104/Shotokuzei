@@ -48,7 +48,7 @@
             <Image url="@../img/acc.png" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="114.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn Văn A">
+      <Text fx:id="fullName" fill="WHITE" layoutX="114.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn Văn A">
          <font>
             <Font name="Arial Bold" size="18.0" />
          </font>

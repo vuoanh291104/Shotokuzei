@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField prefHeight="64.0" prefWidth="448.0" GridPane.rowIndex="1">
+            <TextField fx:id="userName" prefHeight="64.0" prefWidth="448.0" GridPane.rowIndex="1">
                <font>
                   <Font size="27.0" />
                </font>
@@ -55,7 +55,7 @@
             <RowConstraints minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <PasswordField prefHeight="64.0" prefWidth="448.0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="password" prefHeight="64.0" prefWidth="448.0" GridPane.rowIndex="1" />
             <Text fill="#0965f4" strokeType="OUTSIDE" strokeWidth="0.0" text="Mật khẩu" wrappingWidth="254.9830722808838">
                <font>
                   <Font name="Calibri Bold" size="27.0" />
