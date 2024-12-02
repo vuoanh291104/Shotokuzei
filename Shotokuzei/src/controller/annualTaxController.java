@@ -19,7 +19,7 @@ public class annualTaxController {
     public void ViewChooseYear(){
         int currentYear = LocalDate.now().getYear();
         ObservableList<Integer> years = FXCollections.observableArrayList();
-        for(int i = 2020 ; i <= currentYear; i++){
+        for(int i = 2022 ; i <= currentYear; i++){
             years.add(i);
         }
         chooseYear.setItems(years);

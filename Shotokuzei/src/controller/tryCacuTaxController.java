@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import model.TaxCalculator;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -65,8 +66,9 @@ public class tryCacuTaxController {
                 dependent = Integer.parseInt(dependentText);
             }
 
-            // Tính thuế
-            int tax = (int) tax(salary, dependent);
+
+            TaxCalculator taxCalculator = new TaxCalculator();
+            int tax = (int)taxCalculator.taxMonthly(salary,dependent,LocalDate.now().getYear());
             taxTry.setText(formatNumber(tax) + " đ");
 
             // Tính tổng giảm trừ
@@ -79,28 +81,6 @@ public class tryCacuTaxController {
     }
 
    
-    public double tax(int salary, int dependent) {
-        double tax = 0;
-        int TNTT = salary - gtCaNhan - (gtNPT * dependent);
-        if (TNTT > 0) {
-            if (TNTT <= 5000000) { // Bậc 1
-                tax = TNTT * 0.05;
-            } else if (TNTT <= 10000000) { // Bậc 2
-                tax = 250000 + (TNTT - 5000000) * 0.1;
-            } else if (TNTT <= 18000000) { // Bậc 3
-                tax = 750000 + (TNTT - 10000000) * 0.15;
-            } else if (TNTT <= 32000000) { // Bậc 4
-                tax = 1950000 + (TNTT - 18000000) * 0.2;
-            } else if (TNTT <= 52000000) { // Bậc 5
-                tax = 4750000 + (TNTT - 32000000) * 0.25;
-            } else if (TNTT <= 80000000) { // Bậc 6
-                tax = 9750000 + (TNTT - 52000000) * 0.3;
-            } else { // Bậc 7
-                tax = 18150000 + (TNTT - 80000000) * 0.35;
-            }
-        }
-        return tax;
-    }
 
     public void getGTru() {
         int currentYear = LocalDate.now().getYear();
