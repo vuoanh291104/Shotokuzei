@@ -57,7 +57,7 @@ public class salaryMonthController {
 
     @FXML
     public void initialize() {
-        YearSelected();
+        ViewComboYear();
         setupTableColumns();
         getSalaryOfPerson(LocalDate.now().getYear());
     }
@@ -114,13 +114,13 @@ public class salaryMonthController {
         salaryTable.setItems(salaryList);
     }
 
-    public void YearSelected(){
+    public void ViewComboYear(){
         int currentYear = LocalDate.now().getYear();
 
 
         ObservableList<Integer> years = FXCollections.observableArrayList();
 
-        // Thêm các năm từ 2020 đến năm hiện tại
+
         for (int i = 2022; i <= currentYear; i++) {
             years.add(i);
         }
@@ -158,11 +158,9 @@ public class salaryMonthController {
             }
         });
         chooseYear.setOnAction(event -> getSalaryOfPerson(getSelectedYear()));
-//        chooseYear.setOnAction(event -> HandleSettlementBtn(getSelectedYear()));
 
     }
     public int getSelectedYear(){
-        System.out.println(chooseYear.getValue());
         return chooseYear.getValue();
     }
 

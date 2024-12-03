@@ -6,16 +6,13 @@ public class SalaryData {
     private int dependents;
     private int totalDeductions;
     private int tax;
+    private String name;
+    private int taxYear;
+
+    private String rsTax;
 
     public  SalaryData(){}
 
-    public SalaryData(String month, int salary, int dependents, int totalDeductions, int tax) {
-        this.month = month;
-        this.salary = salary;
-        this.dependents = dependents;
-        this.totalDeductions = totalDeductions;
-        this.tax = tax;
-    }
 
     // Getters và Setters
     public String getMonth() {
@@ -57,5 +54,13 @@ public class SalaryData {
     public void setTax(int tax) {
         this.tax = tax;
     }
+
+    public String getName(){return  name;}
+    public void setName(String name){ this.name = name;}
+    public int getTaxYear(){ return taxYear;}
+    public void setTaxYear(int taxYear){ this.taxYear = taxYear;}
+
+    public String getRsTax(){ return rsTax;}
+    public void setRsTax(String rsTax){ this.rsTax = rsTax;}
 }
 
