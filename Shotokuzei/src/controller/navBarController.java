@@ -31,7 +31,10 @@ public class navBarController {
     private simpleDepartmentController simpleDepartmentController;
 
     public void initialize(){
-        getNameUser();
+        if(User.getInstance().getRole().equals("Nhan Vien") || User.getInstance().getRole().equals("Truong phong")){
+            getNameUser();
+        }
+
     }
     public void getNameUser(){
         String table ="";
