@@ -41,7 +41,9 @@ public class navBarController {
     private simpleDepartmentController simpleDepartmentController;
 
     public void initialize(){
-        nameDepartment.setText(phongBan.getTenPhongBan());
+        if(phongBan!=null && nameDepartment!=null){
+            nameDepartment.setText(phongBan.getTenPhongBan());
+        }
         if(AppController.getInstance().getUser().getRole().equals("Nhan Vien") || AppController.getInstance().getUser().getRole().equals("Truong phong")){
             getNameUser();
         }
