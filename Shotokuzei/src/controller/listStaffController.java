@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Person;
 import model.SalaryData;
 import model.User;
 import model.YearFee;
@@ -38,7 +39,15 @@ public class listStaffController {
     private TableColumn<SalaryData, Integer> totalDeductionsColumn;
     @FXML
     private TableColumn<SalaryData, Integer> taxMonthColumn;
+    @FXML
+    private TableColumn<SalaryData, String> phoneColumn;
+    @FXML
+    private TableColumn<SalaryData, String> emailColumn;
+    @FXML
+    private TableColumn<SalaryData, String> addressColumn;
+
     private ObservableList<SalaryData> listSalaryStaff = FXCollections.observableArrayList();
+
 
     @FXML
     public void initialize() {
@@ -139,6 +148,9 @@ public class listStaffController {
         dependentsColumn.setCellValueFactory(new PropertyValueFactory<>("dependents"));
         totalDeductionsColumn.setCellValueFactory(new PropertyValueFactory<>("totalDeductions"));
         taxMonthColumn.setCellValueFactory(new PropertyValueFactory<>("tax"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("numberPhone"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("gmail"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
         sttColumn.setCellFactory(column -> new TableCell<>() {
             @Override
@@ -205,6 +217,7 @@ public class listStaffController {
 
         // Gán danh sách vào TableView
         listStaff.setItems(listSalaryStaff);
+
     }
 
     public int getYearSelected(){return chooseYear.getValue();}
@@ -214,7 +227,7 @@ public class listStaffController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "select e.fullname, e.dependents, p.employee_id, p.time_pay, p.salary, p.tax  " +
+        String query = "select e.fullname, e.dependents, p.employee_id, p.time_pay, p.salary, p.tax, e.phone , e.email, e.hometown " +
                 " FROM employees e join payroll p on e.employee_id = p.employee_id " +
                 "where e.department_id='"+getIdDepartment()+"' and year(p.time_pay)="+year +" and month(p.time_pay)="+month+";";
 
@@ -228,12 +241,17 @@ public class listStaffController {
             while (rs.next()){
                 hasData=true;
                 SalaryData salaryData = new SalaryData();
+
                 salaryData.setName(rs.getString("e.fullname"));
                 salaryData.setDependents(rs.getInt("e.dependents"));
                 salaryData.setTax(rs.getInt("p.tax"));
                 salaryData.setSalary(rs.getInt("p.salary"));
                 salaryData.setTotalDeductions(calculateDeductions(getYearSelected(),salaryData.getDependents()));
+                salaryData.setNumberPhone(rs.getString("e.phone"));
+                salaryData.setGmail(rs.getString("e.email"));
+                salaryData.setAddress(rs.getString("e.hometown"));
                 listSalaryStaff.add(salaryData);
+
             }
             if (!hasData) {
 
