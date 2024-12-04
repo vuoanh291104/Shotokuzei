@@ -56,7 +56,7 @@ public class changePassController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "SELECT password FROM users WHERE user_id='" + User.getInstance().getUserId() + "'";
+        String query = "SELECT password FROM users WHERE user_id='" + AppController.getInstance().getUser().getUserId() + "'";
         try (Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(query)) {
             if (rs.next()) {
                 curPass = rs.getString("password");
@@ -85,7 +85,7 @@ public class changePassController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "UPDATE users SET password=? WHERE user_id='" + User.getInstance().getUserId() + "'";
+        String query = "UPDATE users SET password=? WHERE user_id='" + AppController.getInstance().getUser().getUserId() + "'";
         try (PreparedStatement pstm = conn.prepareStatement(query)) {
             pstm.setString(1, newPass);
             int row = pstm.executeUpdate();
@@ -106,7 +106,7 @@ public class changePassController {
 
         // Chuyển sang scene đăng nhập
         try {
-            User.setInstance(null);
+            AppController.getInstance().setUser(null);
 
             // Tải FXML của màn hình đăng nhập
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));

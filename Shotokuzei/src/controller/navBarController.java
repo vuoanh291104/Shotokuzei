@@ -11,13 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import model.User;
-import org.w3c.dom.Text;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.NhanVien;
 import model.Person;
+import model.PhongBan;
 import model.User;
 
 
@@ -30,7 +28,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class navBarController {
-    public static String idDepartment;
+
+    public static PhongBan phongBan;
+
     @FXML
     private AnchorPane generalScene;
     private Button selectedButton;
@@ -41,16 +41,17 @@ public class navBarController {
     private simpleDepartmentController simpleDepartmentController;
 
     public void initialize(){
-        if(User.getInstance().getRole().equals("Nhan Vien") || User.getInstance().getRole().equals("Truong phong")){
+        nameDepartment.setText(phongBan.getTenPhongBan());
+        if(AppController.getInstance().getUser().getRole().equals("Nhan Vien") || AppController.getInstance().getUser().getRole().equals("Truong phong")){
             getNameUser();
         }
 
     }
     public void getNameUser(){
         String table ="";
-        if(User.getInstance().getRole().equals("Nhan Vien")){
+        if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
             table ="taxdb.employees";
-        }else if(User.getInstance().getRole().equals("Truong phong")){
+        }else if(AppController.getInstance().getUser().getRole().equals("Truong phong")){
             table="taxdb.managers";
         }
         System.out.print(table);
@@ -62,7 +63,7 @@ public class navBarController {
         Person person = new Person();
         try{
             pstm = conn.prepareStatement(query);
-            pstm.setString(1,User.getInstance().getUserId());
+            pstm.setString(1,AppController.getInstance().getUser().getUserId());
             ResultSet rs = pstm.executeQuery();
             while (rs.next()){
                 person.setName(rs.getString("fullname"));
@@ -72,15 +73,6 @@ public class navBarController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    public void SetDepartmentName(String nd){
-        if(nameDepartment!=null){
-            if(nd!=null)
-                nameDepartment.setText(nd);
-            else System.out.print("check ten");
-        }else
-            System.out.print("errr");
-
     }
 
     public void LoadView(String idScene, String folder) throws IOException {
@@ -143,7 +135,7 @@ public class navBarController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                User.setInstance(null);
+                AppController.getInstance().setUser(null);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);

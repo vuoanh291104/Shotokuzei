@@ -5,7 +5,7 @@ public class NhanVien extends Person{
         super.setRole(ERole.NhanVien);
     }
 
-    public NhanVien(String uid, String name, String gmail, String numberPhone, int idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
+    public NhanVien(String uid, String name, String gmail, String numberPhone, String idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
         super(ERole.NhanVien, uid, name, gmail, numberPhone, idPhongBan, dob, address, soNguoiPhuThuoc);
     }
 }

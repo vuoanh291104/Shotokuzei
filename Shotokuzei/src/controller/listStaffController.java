@@ -270,7 +270,7 @@ public class listStaffController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "select d.department_id from departments d join managers m on d.manager_id = m.manager_id where user_id='"+ User.getInstance().getUserId()+"'";
+        String query = "select d.department_id from departments d join managers m on d.manager_id = m.manager_id where user_id='"+ AppController.getInstance().getUser().getUserId()+"'";
 
         Statement stm = null;
         try {
