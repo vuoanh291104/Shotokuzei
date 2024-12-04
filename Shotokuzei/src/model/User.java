@@ -3,6 +3,7 @@ package model;
 import controller.QueryController;
 
 public class User {
+
     private String userId;
     private String role;
 
@@ -36,7 +37,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-
-
 }
