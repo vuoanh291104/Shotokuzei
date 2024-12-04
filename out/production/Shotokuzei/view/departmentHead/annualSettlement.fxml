@@ -17,15 +17,15 @@
     <content>
         <AnchorPane prefHeight="1024.0" prefWidth="1582.0">
             <children>
-                <TableView layoutX="14.0" layoutY="299.0" prefHeight="683.0" prefWidth="1526.0">
+                <TableView fx:id="listStaffAnnual" layoutX="14.0" layoutY="299.0" prefHeight="683.0" prefWidth="1526.0">
                     <columns>
-                        <TableColumn prefWidth="68.0" resizable="false" styleClass="first-column" text="STT" />
-                        <TableColumn minWidth="0.0" prefWidth="243.0" resizable="false" text="Tên nhân viên" />
-                        <TableColumn prefWidth="243.0" resizable="false" text="Tổng lương/ 12 tháng" />
-                        <TableColumn prefWidth="243.0" resizable="false" text="Tổng giảm trừ/ 12 tháng" />
-                        <TableColumn prefWidth="243.0" resizable="false" text="Thuế TNCN/ Tháng" />
-                  <TableColumn prefWidth="243.0" resizable="false" text="Thuế TNCN năm" />
-                  <TableColumn prefWidth="243.0" resizable="false" styleClass="last-column" text="Truy lĩnh/ Truy thu" />
+                        <TableColumn fx:id="sttColumn" prefWidth="68.0" resizable="false" styleClass="first-column" text="STT" />
+                        <TableColumn fx:id="nameStaffColumn" minWidth="0.0" prefWidth="243.0" resizable="false" text="Tên nhân viên" />
+                        <TableColumn fx:id="totalSalaryColumn" prefWidth="243.0" resizable="false" text="Tổng lương/ 12 tháng" />
+                        <TableColumn fx:id="totalFeeColumn" prefWidth="243.0" resizable="false" text="Tổng giảm trừ/ 12 tháng" />
+                        <TableColumn fx:id="totalTaxColumn" prefWidth="243.0" resizable="false" text="Thuế TNCN/ Tháng" />
+                  <TableColumn fx:id="taxYearColumn" prefWidth="243.0" resizable="false" text="Thuế TNCN năm" />
+                  <TableColumn fx:id="rsColumn" prefWidth="243.0" resizable="false" styleClass="last-column" text="Truy lĩnh/ Truy thu" />
                     </columns>
                 </TableView>
                 <ComboBox fx:id="chooseYear" layoutX="27.0" layoutY="137.0" prefHeight="64.0" prefWidth="253.0" promptText="Chọn năm">

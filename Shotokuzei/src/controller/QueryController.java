@@ -31,14 +31,15 @@ public class QueryController {
         }
     }
     public String getNextID(String nameTable, String nameColumn) {
-        ResultSet rs = QueryController.getInstance().Query("SELECT "+nameTable+"\n" +
-                "FROM "+nameColumn+"\n" +
+        ResultSet rs = QueryController.getInstance().Query("SELECT "+nameColumn+"\n" +
+                "FROM "+nameTable+"\n" +
                 "ORDER BY CAST(SUBSTRING(user_id, 4) AS UNSIGNED) DESC\n" +
                 "LIMIT 1;\n");
         try {
             if(rs.next()){
                 String s = rs.getString(nameColumn);
-                return s.substring(0,3) + (Integer.parseInt(s.substring(3,5)+1));
+                System.out.println(s);
+                return s.substring(0,3) + (Integer.parseInt(s.substring(3,5))+1);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -18,7 +18,7 @@ public class User {
     }
 
     public User(String role) {
-        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_role");
+        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_id");
         this.role = role;
     }
 

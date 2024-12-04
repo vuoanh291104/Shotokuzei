@@ -6,7 +6,7 @@ public class Person {
     private String name;
     private String gmail;
     private String numberPhone;
-    private int idPhongBan;
+    private String idPhongBan;
     private String dob;
     private String address;
     private int soNguoiPhuThuoc;
@@ -14,7 +14,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(ERole role, String uid, String name, String gmail, String numberPhone, int idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
+    public Person(ERole role, String uid, String name, String gmail, String numberPhone, String idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
         this.role = role;
         this.uid = uid;
         this.name = name;
@@ -66,11 +66,11 @@ public class Person {
         this.numberPhone = numberPhone;
     }
 
-    public int getIdPhongBan() {
+    public String getIdPhongBan() {
         return idPhongBan;
     }
 
-    public void setIdPhongBan(int idPhongBan) {
+    public void setIdPhongBan(String idPhongBan) {
         this.idPhongBan = idPhongBan;
     }
 

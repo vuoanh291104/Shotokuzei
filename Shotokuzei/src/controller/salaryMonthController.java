@@ -215,7 +215,7 @@ public class salaryMonthController {
         String id="";
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
-        String query= "SELECT dependents, " +checkRole()+ " FROM " +getTable()+" where user_id = " +"'" + User.getInstance().getUserId()+"'" ;
+        String query= "SELECT dependents, " +checkRole()+ " FROM " +getTable()+" where user_id = " +"'" + AppController.getInstance().getUser().getUserId()+"'" ;
 
         System.out.println(query);
         Statement stm =null;
@@ -234,18 +234,18 @@ public class salaryMonthController {
     }
     public String checkRole(){
         String personID="";
-        if(User.getInstance().getRole().equals("Nhan Vien")){
+        if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
             personID ="employee_id";
-        }else if(User.getInstance().getRole().equals("Truong phong")){
+        }else if(AppController.getInstance().getUser().getRole().equals("Truong phong")){
             personID ="manager_id";
         }
         return personID;
     }
     public String getTable(){
         String table="";
-        if(User.getInstance().getRole().equals("Nhan Vien")){
+        if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
             table ="taxdb.employees";
-        }else if(User.getInstance().getRole().equals("Truong phong")){
+        }else if(AppController.getInstance().getUser().getRole().equals("Truong phong")){
             table ="taxdb.managers";
         }
         return table;

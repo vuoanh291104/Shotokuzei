@@ -24,7 +24,7 @@ public class addStaffController {
     @FXML
     private Button addNewStaff;
 
-    private void initialize(){
+    public void initialize(){
         addEvent();
     }
 
@@ -37,30 +37,13 @@ public class addStaffController {
             nv.setGmail(txtEmail.getText());
             nv.setNumberPhone(txtNumberPhone.getText());
             nv.setSoNguoiPhuThuoc(Integer.parseInt(txtSoNguoiPhuThuoc.getText()));
-            nv.setIdPhongBan(Integer.parseInt(navBarController.idDepartment));
+            nv.setIdPhongBan(navBarController.phongBan.getId());
             nv.setUid(QueryController.getInstance().getNextID("taxdb.employees","employee_id"));
 
             User user = new User("Nhan Vien");
 
-            QueryController.getInstance().InsertValue("Insert into taxdb.users (user_role, user_id, username, password) Values ('Nhan Vien'"+user.getUserId()+","+user.getUserId().toLowerCase()+","+user.getUserId().toLowerCase()+");");
-            QueryController.getInstance().InsertValue("Insert into taxdb.employees (employee_id, user_id, department_id, fullname, phone, email, birth, hometown, dependents) Values ("+nv.getUid()+","+user.getUserId()+","+navBarController.idDepartment+","+nv.getName()+","+nv.getNumberPhone()+","+nv.getGmail()+","+nv.getDob()+","+nv.getAddress()+","+nv.getSoNguoiPhuThuoc()+");");
+            QueryController.getInstance().InsertValue("Insert into taxdb.users (user_role, user_id, username, password) Values ('Nhan Vien','"+user.getUserId()+"','"+user.getUserId().toLowerCase()+"','"+user.getUserId().toLowerCase()+"');");
+            QueryController.getInstance().InsertValue("Insert into taxdb.employees (employee_id, user_id, department_id, fullname, phone, email, birth, hometown, dependents) Values ('"+nv.getUid()+"','"+user.getUserId()+"','"+navBarController.phongBan.getId()+"','"+nv.getName()+"','"+nv.getNumberPhone()+"','"+nv.getGmail()+"','"+nv.getDob()+"','"+nv.getAddress()+"',"+nv.getSoNguoiPhuThuoc()+");");
         });
-    }
-    public void addEmployee(){
-        System.out.println("addEmployee");
-        NhanVien nv = new NhanVien();
-        nv.setName(txtName.getText());
-        nv.setDob(txtDob.getText());
-        nv.setAddress(txtAddress.getText());
-        nv.setGmail(txtEmail.getText());
-        nv.setNumberPhone(txtNumberPhone.getText());
-        nv.setSoNguoiPhuThuoc(Integer.parseInt(txtSoNguoiPhuThuoc.getText()));
-        nv.setIdPhongBan(Integer.parseInt(navBarController.idDepartment));
-        nv.setUid(QueryController.getInstance().getNextID("taxdb.employees","employee_id"));
-
-        User user = new User("Nhan Vien");
-
-        QueryController.getInstance().InsertValue("Insert into taxdb.users (user_role, user_id, username, password) Values ('Nhan Vien'"+user.getUserId()+","+user.getUserId().toLowerCase()+","+user.getUserId().toLowerCase()+");");
-        QueryController.getInstance().InsertValue("Insert into taxdb.employees (employee_id, user_id, department_id, fullname, phone, email, birth, hometown, dependents) Values ("+nv.getUid()+","+user.getUserId()+","+navBarController.idDepartment+","+nv.getName()+","+nv.getNumberPhone()+","+nv.getGmail()+","+nv.getDob()+","+nv.getAddress()+","+nv.getSoNguoiPhuThuoc()+");");
     }
 }

@@ -66,9 +66,9 @@ public class infoController {
 
     public void getInfo(){
         String table ="";
-        if(User.getInstance().getRole().equals("Nhan Vien")){
+        if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
             table ="taxdb.employees";
-        }else if(User.getInstance().getRole().equals("Truong phong")){
+        }else if(AppController.getInstance().getUser().getRole().equals("Truong phong")){
             table="taxdb.managers";
         }
         ConnectDB connectDB = new ConnectDB();
@@ -79,7 +79,7 @@ public class infoController {
         Person person = new Person();
         try {
             pstm = conn.prepareStatement(query);
-            pstm.setString(1, User.getInstance().getUserId());
+            pstm.setString(1, AppController.getInstance().getUser().getUserId());
             ResultSet rs = pstm.executeQuery();
             while (rs.next()){
                 person.setName(rs.getString("fullname"));
@@ -106,7 +106,7 @@ public class infoController {
     }
 
     public String getTableOfRole(){
-        return User.getInstance().getRole().equals("Nhan Vien")?"taxdb.employees":"taxdb.managers";
+        return AppController.getInstance().getUser().getRole().equals("Nhan Vien")?"taxdb.employees":"taxdb.managers";
     }
 
     public void editInfo(){
@@ -125,7 +125,7 @@ public class infoController {
             pstm.setString(1, phone.getText());
             pstm.setString(2,email.getText());
             pstm.setString(3, address.getText());
-            pstm.setString(4,User.getInstance().getUserId());
+            pstm.setString(4,AppController.getInstance().getUser().getUserId());
 
             int row = pstm.executeUpdate();
             if(row != 0){
@@ -218,14 +218,14 @@ public class infoController {
     }
 
     public String getNameid(){
-        return User.getInstance().getRole().equals("Nhan Vien")?"employee_id":"manager_id";
+        return AppController.getInstance().getUser().getRole().equals("Nhan Vien")?"employee_id":"manager_id";
     }
     public String getPersonId(){
 
         String personId="";
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
-        String query= "select "+getNameid()+ " from "+getTableOfRole() + " where user_id='" + User.getInstance().getUserId()+ "'";
+        String query= "select "+getNameid()+ " from "+getTableOfRole() + " where user_id='" + AppController.getInstance().getUser().getUserId()+ "'";
         Statement stm = null;
         try {
             stm = conn.createStatement();
