@@ -218,7 +218,7 @@ public class listStaffController {
                 " FROM employees e join payroll p on e.employee_id = p.employee_id " +
                 "where e.department_id='"+getIdDepartment()+"' and year(p.time_pay)="+year +" and month(p.time_pay)="+month+";";
 
-        System.out.println(query);
+
         listSalaryStaff.clear();
         Statement stm = null;
         try {

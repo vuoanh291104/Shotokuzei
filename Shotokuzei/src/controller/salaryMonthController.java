@@ -170,7 +170,7 @@ public class salaryMonthController {
         Connection conn = connectDB.connect();
 
         String query="SELECT month(time_pay),salary, tax, time_pay FROM taxdb.payroll where "+checkRole()+"='" +getID()+ "' and year(time_pay) = " + year +" order by month(time_pay) asc";
-        System.out.println(query);
+
         Statement stm = null;
         try {
             stm = conn.createStatement();

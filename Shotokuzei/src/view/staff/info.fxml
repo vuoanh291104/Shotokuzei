@@ -38,7 +38,7 @@
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <Text fill="#0965f4" strokeType="OUTSIDE" strokeWidth="0.0" text="Số người phụ thuộc" GridPane.rowIndex="1">
+            <Text fill="#0965f4" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" GridPane.rowIndex="1">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
@@ -48,15 +48,15 @@
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <Text fill="#0965f4" strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ " GridPane.rowIndex="3">
+            <Text fill="#0965f4" strokeType="OUTSIDE" strokeWidth="0.0" text="Số người phụ thuộc" GridPane.rowIndex="3">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <TextField fx:id="phone" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" />
-            <TextField fx:id="address" layoutX="293.0" layoutY="13.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="email" layoutX="293.0" layoutY="146.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Spinner fx:id="dependent" editable="true" prefHeight="64.0" prefWidth="460.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="phone" disable="true" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" />
+            <TextField fx:id="address" disable="true" layoutX="293.0" layoutY="13.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="email" disable="true" layoutX="293.0" layoutY="146.0" prefHeight="64.0" prefWidth="448.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Spinner fx:id="dependent" disable="true" editable="true" prefHeight="64.0" prefWidth="460.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Text fx:id="fullName" fill="#0965f4" layoutX="343.0" layoutY="228.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn A" wrappingWidth="268.3984375">
@@ -69,7 +69,7 @@
             <Font name="Arial" size="24.0" />
          </font>
       </Text>
-      <Button fx:id="submitBtn" disable="true" layoutX="695.0" layoutY="922.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="192.0" text="XÁC NHẬN" textFill="WHITE">
+      <Button fx:id="submitBtn" disable="true" layoutX="695.0" layoutY="922.0" mnemonicParsing="false" onAction="#HandleSubmit" prefHeight="64.0" prefWidth="192.0" text="XÁC NHẬN" textFill="WHITE">
          <font>
             <Font name="Arial Bold" size="22.0" />
          </font>
@@ -79,5 +79,10 @@
             <Image url="@../img/edit.png" />
          </image>
       </ImageView>
+      <Text fx:id="changeDependentTxt" layoutX="912.0" layoutY="848.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="228.13671875">
+         <font>
+            <Font name="Arial Italic" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

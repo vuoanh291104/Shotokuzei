@@ -58,10 +58,13 @@
             </children>
         </GridPane>
         <AnchorPane fx:id="generalScene" layoutX="345.0" layoutY="71.0" prefHeight="952.0" prefWidth="1582.0" />
-        <ImageView fx:id="logout" fitHeight="48.0" fitWidth="48.0" layoutX="149.0" layoutY="941.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="logout" fitHeight="48.0" fitWidth="48.0" layoutX="149.0" layoutY="941.0" onMouseClicked="#HandleLogout" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@../img/logout.png" />
             </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </ImageView>
       <ImageView fx:id="message" fitHeight="64.0" fitWidth="64.0" layoutX="141.0" layoutY="57.0" onMouseClicked="#MoveOnNotification" pickOnBounds="true" preserveRatio="true">
          <image>
