@@ -6,13 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import model.User;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
 
 public class navBarController {
-
+    public static String idDepartment;
     @FXML
     private AnchorPane generalScene;
     private Button selectedButton;

@@ -1,40 +1,42 @@
 package model;
 
+import controller.QueryController;
+
 public class User {
-    private int uid;
-    private String uname;
-    private String password;
+    private String userId;
+    private String role;
 
-    public User() {
+
+    private User(){
+        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_role");
     }
 
-    public User(int uid, String uname, String password) {
-        this.uid = uid;
-        this.uname = uname;
-        this.password = password;
+    public User(String userId, String role) {
+        this.userId = userId;
+        this.role = role;
     }
 
-    public int getUid() {
-        return uid;
+    public User(String role) {
+        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_role");
+        this.role = role;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getUname() {
-        return uname;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public void setUname(String uname) {
-        this.uname = uname;
+    public String getRole() {
+        return role;
     }
 
-    public String getPassword() {
-        return password;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
+
 }

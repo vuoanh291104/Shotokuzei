@@ -2,7 +2,7 @@ package model;
 
 public class Person {
     private ERole role;
-    private int uid;
+    private String uid;
     private String name;
     private String gmail;
     private String numberPhone;
@@ -14,7 +14,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(ERole role, int uid, String name, String gmail, String numberPhone, int idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
+    public Person(ERole role, String uid, String name, String gmail, String numberPhone, int idPhongBan, String dob, String address, int soNguoiPhuThuoc) {
         this.role = role;
         this.uid = uid;
         this.name = name;
@@ -34,11 +34,11 @@ public class Person {
         this.role = role;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
