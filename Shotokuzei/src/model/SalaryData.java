@@ -10,6 +10,33 @@ public class SalaryData {
     private int taxYear;
 
     private String rsTax;
+    private String numberPhone;
+    private String gmail;
+    private String address;
+
+    public String getNumberPhone() {
+        return numberPhone;
+    }
+
+    public void setNumberPhone(String numberPhone) {
+        this.numberPhone = numberPhone;
+    }
+
+    public String getGmail() {
+        return gmail;
+    }
+
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public  SalaryData(){}
 
