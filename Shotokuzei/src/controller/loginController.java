@@ -36,9 +36,9 @@ public class loginController {
 
     public void HandleLogin (ActionEvent event) throws IOException{
         if(findUser()){
-            if(User.getInstance().getRole().equals("Nhan Vien")){
-                root = FXMLLoader.load(getClass().getResource("/view/staff/general.fxml"));
-            }else if(User.getInstance().getRole().equals("Truong phong")){
+          if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
+                          root = FXMLLoader.load(getClass().getResource("/view/staff/general.fxml"));
+                      }else if(AppController.getInstance().getUser().getRole().equals("Truong phong")){
                 root = FXMLLoader.load(getClass().getResource("/view/departmentHead/general.fxml"));
             }else {
                 root = FXMLLoader.load(getClass().getResource("/view/accountant/listDepartments.fxml"));
@@ -78,8 +78,7 @@ public class loginController {
             while (rs.next()){
                 role = rs.getString("user_role");
                 userId = rs.getString("user_id");
-                User.getInstance().setUserId(userId);
-                User.getInstance().setRole(role);
+                AppController.getInstance().setUser(new User(userId,role));
                 return true;
             }
             conn.close();
@@ -89,3 +88,4 @@ public class loginController {
         return false;
     }
 }
+

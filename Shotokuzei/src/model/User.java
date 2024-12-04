@@ -1,22 +1,25 @@
 package model;
 
+import controller.QueryController;
+
 public class User {
-   private static User instance;
-   private String userId;
+
+    private String userId;
     private String role;
 
 
-    private User(){}
-
-    public static User getInstance() {
-        if(instance == null){
-            instance = new User();
-        }
-        return instance;
+    private User(){
+        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_role");
     }
 
-    public static void setInstance(User instance) {
-        User.instance = instance;
+    public User(String userId, String role) {
+        this.userId = userId;
+        this.role = role;
+    }
+
+    public User(String role) {
+        this.userId = QueryController.getInstance().getNextID("taxdb.users","user_role");
+        this.role = role;
     }
 
     public String getUserId() {
@@ -34,7 +37,4 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
-
-
-
 }

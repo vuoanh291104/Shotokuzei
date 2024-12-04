@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.User;
+import org.w3c.dom.Text;
+
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.NhanVien;
@@ -27,7 +30,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class navBarController {
-
+    public static String idDepartment;
     @FXML
     private AnchorPane generalScene;
     private Button selectedButton;

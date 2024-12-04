@@ -1,32 +1,32 @@
 package model;
 
 public class PhongBan {
-    private int id;
-    private int idTruongPhong;
+    private String id;
+    private String idTruongPhong;
     private String tenPhongBan;
 
     public PhongBan() {
     }
 
-    public PhongBan(int id, int idTruongPhong, String tenPhongBan) {
+    public PhongBan(String id,  String tenPhongBan, String idTruongPhong) {
         this.id = id;
         this.idTruongPhong = idTruongPhong;
         this.tenPhongBan = tenPhongBan;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getIdTruongPhong() {
+    public String getIdTruongPhong() {
         return idTruongPhong;
     }
 
-    public void setIdTruongPhong(int idTruongPhong) {
+    public void setIdTruongPhong(String idTruongPhong) {
         this.idTruongPhong = idTruongPhong;
     }
 
