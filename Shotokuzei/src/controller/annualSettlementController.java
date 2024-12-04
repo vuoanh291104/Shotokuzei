@@ -180,7 +180,8 @@ public class annualSettlementController {
                 "    deductions d \n" +
                 "    ON d.year_apply = " + year+
                 " WHERE \n" +
-                "    e.department_id = '"+getIdDepartment()+"' AND YEAR(p.time_pay) = "+year;
+                "    e.department_id = '"+getIdDepartment()+"' AND YEAR(p.time_pay) = "+year +"\nGROUP BY \n" +
+                "    e.employee_id, e.fullname, e.dependents;" ;
 
 
         listSalaryStaffAnnual.clear();
