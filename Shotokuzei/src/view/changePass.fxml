@@ -32,7 +32,7 @@
                         <Font name="Arial Bold" size="24.0" />
                     </font>
                 </Text>
-            <PasswordField fx:id="currentPass" prefHeight="64.0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="currentPass" onKeyTyped="#onInput" prefHeight="64.0" GridPane.rowIndex="1" />
             </children>
         </GridPane>
         <GridPane layoutX="546.0" layoutY="457.0" prefHeight="112.0" prefWidth="450.0" vgap="18.0">
@@ -49,7 +49,7 @@
                         <Font name="Arial Bold" size="24.0" />
                     </font>
                 </Text>
-            <PasswordField fx:id="newPass" prefHeight="64.0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="newPass" onKeyTyped="#onInput" prefHeight="64.0" GridPane.rowIndex="1" />
             </children>
         </GridPane>
         <Button fx:id="changePassBtn" layoutX="699.0" layoutY="797.0" mnemonicParsing="false" onAction="#HandleChangePass" prefHeight="64.0" prefWidth="192.0" text="XÁC NHẬN" textFill="WHITE">
@@ -71,7 +71,7 @@
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Text>
-            <PasswordField fx:id="newPassAgain" prefHeight="64.0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="newPassAgain" onKeyTyped="#onInput" prefHeight="64.0" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Text fx:id="errorCurrentPass" layoutX="676.0" layoutY="439.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="319.13671875">

@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import model.TaxCalculator;
@@ -32,29 +33,55 @@ public class tryCacuTaxController {
 
     public void initialize() {
         getGTru();
+        TextFormatter<String> dependentFormatter = new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;
+        });
+        dependentField.setTextFormatter(dependentFormatter);
+
     }
 
-    public String formatNumber(int number) {
+    public String formatNumber(long number) {
         if (number < 0) return "0";
         NumberFormat numberFormat = NumberFormat.getInstance(new Locale("vi", "VN"));
         return numberFormat.format(number);
     }
+    private void formatMoneyInput(TextField txtMoney){
+        String input = txtMoney.getText().replaceAll("[^\\d]", ""); // Loại bỏ tất cả ký tự không phải số
+
+        StringBuilder formattedInput = new StringBuilder();
+
+        int length = input.length();
+
+        // Duyệt qua chuỗi từ phải sang trái và thêm dấu chấm sau mỗi 3 chữ số
+        for (int i = 0; i < length; i++) {
+            if (i > 0 && i % 3 == 0) {
+                formattedInput.insert(0, "."); // Thêm dấu chấm vào đầu chuỗi
+            }
+            formattedInput.insert(0, input.charAt(length - 1 - i)); // Thêm từng ký tự từ cuối chuỗi
+        }
+
+        // Cập nhật giá trị trong TextField
+        txtMoney.setText(formattedInput.toString());
+
+        // Đặt con trỏ về cuối
+        txtMoney.positionCaret(formattedInput.length());
+    }
 
 
     @FXML
-    public void formatSalaryField(KeyEvent event) {
-        try {
-            String text = salaryField.getText().replace(".", "").trim();
-            int salary = Integer.parseInt(text);
-            salaryField.setText(formatNumber(salary));
-            salaryField.end(); // Di chuyển con trỏ về cuối trường
-        } catch (NumberFormatException e) {
-
-        }
+    public void formatSalaryField() {
+        formatMoneyInput(salaryField);
     }
 
 
     public void OnclickTryCacuBtn() {
+        if(dependentField.getText().isEmpty()){
+            taxTry.setText("Vui lòng nhập số hợp lệ.");
+            return;
+        }
         try {
             // Lấy dữ liệu từ các trường nhập liệu
             String salaryText = salaryField.getText().replace(".", "").trim();
@@ -80,7 +107,7 @@ public class tryCacuTaxController {
         }
     }
 
-   
+
 
     public void getGTru() {
         int currentYear = LocalDate.now().getYear();
