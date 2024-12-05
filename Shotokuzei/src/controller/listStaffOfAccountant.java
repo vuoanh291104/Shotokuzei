@@ -2,15 +2,20 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.IntegerStringConverter;
 import model.SalaryData;
+import model.TaxCalculator;
 import model.YearFee;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -50,6 +55,13 @@ public class listStaffOfAccountant {
         ViewComboMonth();
         setupTableColumns();
         getListStaff(LocalDate.now().getYear(),LocalDate.now().getMonthValue());
+//        listStaff.setOnMouseClicked(event -> {
+//            SalaryData selectedItem = listStaff.getSelectionModel().getSelectedItem();
+//            if (selectedItem != null) {
+//                // In ra id của dòng được chọn
+//                System.out.println("Selected ID: " + selectedItem.getStaffID());
+//            }
+//        });
     }
 
     public String formatNumber(int number) {
@@ -98,17 +110,9 @@ public class listStaffOfAccountant {
                 }
             };
         });
-
-// Xử lý sự kiện chỉnh sửa
         salaryColumn.setOnEditCommit(event -> {
-            SalaryData salaryData = event.getRowValue(); // Lấy đối tượng dòng hiện tại
-            System.out.println(salaryData.getName());
-            Integer newSalary = event.getNewValue(); // Lấy giá trị mới từ người dùng nhập
-            if (newSalary != null) {
-                salaryData.setSalary(newSalary); // Cập nhật giá trị salary vào đối tượng
-                listSalaryStaff.set(event.getTablePosition().getRow(), salaryData); // Cập nhật lại ObservableList
-            }
-            listStaff.refresh(); // Làm mới bảng để hiển thị giá trị đã cập nhật
+            System.out.println("Sự kiện changeSalary được kích hoạt");
+            changeSalary(event);
         });
 
 
@@ -246,13 +250,13 @@ public class listStaffOfAccountant {
     public void getListStaff(int year, int month) {
         listSalaryStaff.clear();
         String queryE = "SELECT e.fullname, e.dependents, e.hometown, e.phone, e.email, " +
-                "p.salary, p.tax " +
+                "p.salary, p.tax, e.employee_id " +
                 "FROM employees e " +
                 "LEFT JOIN payroll p ON e.employee_id = p.employee_id " +
                 "AND YEAR(p.time_pay) = " + year + " AND MONTH(p.time_pay) = " + month + " " +
                 "WHERE e.department_id = '" + navBarController.phongBan.getId() + "'";
         String queryM = "SELECT m.fullname, m.dependents, m.hometown, m.phone, m.email, " +
-                "p.salary, p.tax " +
+                "p.salary, p.tax, m.manager_id " +
                 "FROM managers m " +
                 "LEFT JOIN payroll p ON m.manager_id = p.manager_id " +
                 "AND YEAR(p.time_pay) = " + year + " AND MONTH(p.time_pay) = " + month + " " +
@@ -263,6 +267,7 @@ public class listStaffOfAccountant {
             ResultSet rsE = QueryController.getInstance().Query(queryE);
             while (rsE.next()) {
                 SalaryData salaryData1 = new SalaryData();
+                salaryData1.setStaffID(rsE.getString("e.employee_id"));
                 salaryData1.setName(rsE.getString("fullname"));
                 salaryData1.setDependents(rsE.getInt("dependents"));
                 salaryData1.setTax(rsE.getObject("tax") != null ? rsE.getInt("tax") : 0); // Nếu null thì mặc định là 0
@@ -281,6 +286,7 @@ public class listStaffOfAccountant {
             ResultSet rsM = QueryController.getInstance().Query(queryM);
             while (rsM.next()) {
                 SalaryData salaryData2 = new SalaryData();
+                salaryData2.setStaffID(rsM.getString("m.manager_id"));
                 salaryData2.setName(rsM.getString("m.fullname"));
                 salaryData2.setDependents(rsM.getInt("m.dependents"));
                 salaryData2.setTax(rsM.getObject("tax") != null ? rsM.getInt("tax") : 0); // Nếu null thì mặc định là 0
@@ -296,6 +302,93 @@ public class listStaffOfAccountant {
         }
     }
 
+    @FXML
+    private void changeSalary(TableColumn.CellEditEvent<SalaryData, Integer> event) {
+
+        // Lấy dòng hiện tại (row) từ sự kiện
+        SalaryData selectedStaff = event.getRowValue();
+        if (selectedStaff == null) {
+            System.out.println("Không có dữ liệu nhân viên được chọn.");
+            return;
+        }
+
+        int newSalary = event.getNewValue();
+        String staffID = selectedStaff.getStaffID();
+        if (staffID == null || staffID.isEmpty()) {
+            System.out.println("StaffID không hợp lệ.");
+            return;
+        }
+        System.out.println(staffID);
+
+        // Giá trị ngày hiện tại
+        String timePay = setCurrentSalaryTimePay();
+
+        // Kết nối cơ sở dữ liệu
+        ConnectDB connectDB = new ConnectDB();
+        try (Connection conn = connectDB.connect()) {
+            // Kiểm tra xem staffID có tồn tại trong bảng payroll hay không
+            String checkSql = "SELECT * FROM payroll WHERE (employee_id = ? OR manager_id = ?) AND YEAR(time_pay) = ? AND MONTH(time_pay) = ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+                checkStmt.setString(1, staffID);
+                checkStmt.setString(2, staffID);
+                checkStmt.setInt(3, getYearSelected());
+                checkStmt.setInt(4, getMonthSelected());
+
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next()) {
+                    System.out.println("có vô update ko");
+                    // Nếu tồn tại, thực hiện UPDATE
+                    String updateSql = "UPDATE payroll SET salary = ?, time_pay = ? WHERE (employee_id = ? OR manager_id = ?) AND YEAR(time_pay) = ? AND MONTH(time_pay) = ?";
+                    try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                        updateStmt.setInt(1, newSalary);
+                        updateStmt.setString(2, timePay); // Gán giá trị ngày
+                        updateStmt.setString(3, staffID);
+                        updateStmt.setString(4, staffID);
+                        updateStmt.setInt(5, getYearSelected());
+                        updateStmt.setInt(6, getMonthSelected());
+
+                        int rowsUpdated = updateStmt.executeUpdate();
+                        if (rowsUpdated > 0) {
+                            System.out.println("Cập nhật lương thành công cho StaffID: " + staffID);
+                        } else {
+                            System.out.println("Không thể cập nhật lương cho StaffID: " + staffID);
+                        }
+                    }
+                } else {
+                    System.out.println("vô chỗ thêm ch");
+                    // Nếu không tồn tại, thực hiện INSERT
+                    String insertSql = "INSERT INTO payroll(manager_id, employee_id, tax, time_pay, salary, total_deduction) VALUES (?, ?, 0, ?, ?, 0)";
+                    try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+                        if (staffID.contains("EMP")) {
+                            insertStmt.setString(1, null);
+                            insertStmt.setString(2, staffID);
+                        } else if (staffID.contains("MNG")) {
+                            insertStmt.setString(1, staffID);
+                            insertStmt.setString(2, null);
+                        }
+                        insertStmt.setString(3, timePay);
+                        insertStmt.setInt(4, newSalary);
+
+                        int rowsInserted = insertStmt.executeUpdate();
+                        if (rowsInserted > 0) {
+                            System.out.println("Thêm mới thành công StaffID: " + staffID);
+                        } else {
+                            System.out.println("Không thể thêm mới StaffID: " + staffID);
+                        }
+                    }
+                }
+            }
+
+            // Cập nhật trong danh sách ObservableList và làm mới TableView
+            selectedStaff.setSalary(newSalary);
+            listStaff.refresh();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Lỗi khi xử lý cơ sở dữ liệu: " + e.getMessage());
+        }
+
+    }
 
     private int calculateDeductions ( int year, int dependents){
         YearFee.getFee(year);
@@ -303,5 +396,44 @@ public class listStaffOfAccountant {
         int dependentFee = YearFee.getDependentFee();
         int totalFee = selfFee + dependents * dependentFee;
         return totalFee;
+    }
+
+    public String setCurrentSalaryTimePay(){
+        System.out.println(getYearSelected());
+        System.out.println(getMonthSelected());
+        System.out.println(getYearSelected()+"-"+getMonthSelected()+"-"+"01");
+        return getYearSelected() + "-" + String.format("%02d", getMonthSelected()) + "-01";
+    }
+
+    public void HandleCacuTaxMonth(ActionEvent event){
+        updatePayroll();
+    }
+    public void updatePayroll(){
+        for(SalaryData salaryData: listSalaryStaff){
+            ConnectDB connectDB = new ConnectDB();
+            Connection conn = connectDB.connect();
+
+            String query ="UPDATE payroll SET tax = ?, total_deduction = ? WHERE (employee_id = ? OR manager_id = ?) AND YEAR(time_pay) = ? AND MONTH(time_pay) = ?";
+            PreparedStatement ptsm = null;
+            try {
+                TaxCalculator taxCalculator = new TaxCalculator();
+                ptsm = conn.prepareStatement(query);
+                ptsm.setInt(1,(int) taxCalculator.taxMonthly(salaryData.getSalary(),salaryData.getDependents(),getYearSelected()));
+                ptsm.setInt(2,calculateDeductions(getYearSelected(),salaryData.getDependents()));
+                ptsm.setString(3,salaryData.getStaffID());
+                ptsm.setString(4,salaryData.getStaffID());
+                ptsm.setInt(5,getYearSelected());
+                ptsm.setInt(6,getMonthSelected());
+                int rowsUpdated = ptsm.executeUpdate();
+                if (rowsUpdated > 0) {
+                    System.out.println("Cập nhật lương tax và total cho StaffID: " + salaryData.getStaffID());
+                } else {
+                    System.out.println("Không thể cập nhật tax và total cho StaffID: " + salaryData.getStaffID());
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        getListStaff(getYearSelected(),getMonthSelected());
     }
 }

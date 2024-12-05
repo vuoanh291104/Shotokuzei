@@ -13,6 +13,15 @@ public class SalaryData {
     private String numberPhone;
     private String gmail;
     private String address;
+    private String staffID;
+
+    public String getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(String staffID) {
+        this.staffID = staffID;
+    }
 
     public String getNumberPhone() {
         return numberPhone;
