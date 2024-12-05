@@ -89,7 +89,7 @@ public class addNewDepartmentController {
             java.time.LocalDate.parse(date);
             return true;
         } catch (Exception e) {
-            showAlert("Ngày sinh không hợp lệ", "Ngày sinh phải có định dạng yyyy-MM-dd");
+            showAlert("Ngày sinh không hợp lệ", "Ngày sinh không hợp lệ hoặc không đúng định dạng yyyy-MM-dd");
             return false;
         }
     }
@@ -246,4 +246,52 @@ public class addNewDepartmentController {
         stage.show();
     }
 
+    @FXML
+    private void formatName(){
+        restrictToLettersAndSpaces(nameManager);
+    }
+    @FXML
+    private void formatAddress(){
+        restrictToLettersNumbersAndSpaces(addressManager);
+    }
+    private void restrictToLettersAndSpaces(TextField field) {
+        String input = field.getText().replaceAll("[^\\p{L}\\s]", ""); // Loại bỏ tất cả ký tự không phải chữ cái hoặc dấu cách
+
+        // Cập nhật lại giá trị trong TextField
+        field.setText(input);
+
+        // Đặt con trỏ về cuối
+        field.positionCaret(input.length());
+    }
+    @FXML
+    private void formatNumberPhone(){
+        restrictToNumbers(phoneManager);
+    }
+    @FXML
+    private void formatSNPT(){
+        restrictToNumbers(dependentManager);
+    }
+    private void restrictToNumbers(TextField field) {
+        String input = field.getText().replaceAll("[^\\d]", ""); // Loại bỏ tất cả ký tự không phải số
+
+        // Cập nhật lại giá trị trong TextField
+        field.setText(input);
+
+        // Đặt con trỏ về cuối
+        field.positionCaret(input.length());
+    }
+    @FXML
+    private void formatNameDepartment(){
+        restrictToLettersNumbersAndSpaces(nameDepartment);
+    }
+
+    private void restrictToLettersNumbersAndSpaces(TextField field) {
+        String input = field.getText().replaceAll("[^\\p{L}\\p{N}\\s]", ""); // Loại bỏ tất cả ký tự không phải chữ cái, số hoặc dấu cách
+
+        // Cập nhật lại giá trị trong TextField
+        field.setText(input);
+
+        // Đặt con trỏ về cuối
+        field.positionCaret(input.length());
+    }
 }
