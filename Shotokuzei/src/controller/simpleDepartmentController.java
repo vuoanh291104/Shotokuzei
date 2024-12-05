@@ -29,7 +29,6 @@ public class simpleDepartmentController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/accountant/general.fxml"));
             Parent root = loader.load();
 
-            // Lấy controller của giao diện mới
             navBarController controller = loader.getController();
 
             Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -54,7 +53,7 @@ public class simpleDepartmentController {
     }
 
     public Button createDepartmentButton(PhongBan phongBan, int index) {
-        double layoutY = calculateLayoutY(index); // Tự động tính toán layoutY
+        double layoutY = calculateLayoutY(index);
 
         Button button = new Button(phongBan.getTenPhongBan());
         button.setPrefWidth(468.0);
@@ -64,7 +63,6 @@ public class simpleDepartmentController {
         button.getStyleClass().add("department");
         button.setFont(Font.font("Arial Bold", 32.0));
 
-        // Thêm sự kiện khi nhấn nút
         button.setOnAction(e -> {
             navBarController.phongBan = phongBan;
             try {
@@ -77,8 +75,20 @@ public class simpleDepartmentController {
         return button;
     }
 
-    // Hàm tính toán layoutY
+
     public double calculateLayoutY(int index) {
         return 50 + (index * 183.0);
+    }
+
+    public void callSceneAddNewDepartment(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/accountant/addNewDepartment.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        String css = getClass().getResource("/view/css/style.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 }

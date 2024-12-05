@@ -33,19 +33,16 @@ public class changePassController {
         errorCurrentPass.setText("");
         errorNewPass.setText("");
 
-        // Kiểm tra mật khẩu hiện tại
         if (!checkCurrentPass()) {
             errorCurrentPass.setText("Mật khẩu hiện tại không đúng");
-            return; // Thoát nếu kiểm tra thất bại
+            return;
         }
 
-        // Kiểm tra mật khẩu mới
         if (!checkNewPassAgain()) {
             errorNewPass.setText("Mật khẩu mới không khớp");
-            return; // Thoát nếu kiểm tra thất bại
+            return;
         }
 
-        // Nếu mọi kiểm tra đều thành công, cập nhật mật khẩu
         if (updatePass(newPass.getText())) {
             showSuccessAndRedirect(event);
         }
@@ -89,7 +86,7 @@ public class changePassController {
         try (PreparedStatement pstm = conn.prepareStatement(query)) {
             pstm.setString(1, newPass);
             int row = pstm.executeUpdate();
-            return row != 0; // Trả về true nếu cập nhật thành công
+            return row != 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,27 +94,23 @@ public class changePassController {
     }
 
     private void showSuccessAndRedirect(ActionEvent event) {
-        // Hiển thị thông báo thành công
+
         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle("Thông báo");
         alert.setHeaderText(null);
         alert.setContentText("Cập nhật mật khẩu thành công!");
         alert.showAndWait();
 
-        // Chuyển sang scene đăng nhập
         try {
             AppController.getInstance().setUser(null);
 
-            // Tải FXML của màn hình đăng nhập
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             Parent root = loader.load();
 
-            // Tạo Scene và gắn stylesheet
             Scene scene = new Scene(root);
             String css = getClass().getResource("/view/css/style.css").toExternalForm();
             scene.getStylesheets().add(css);
 
-            // Lấy Stage hiện tại và chuyển Scene
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
