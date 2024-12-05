@@ -38,8 +38,8 @@ public class QueryController {
         try {
             if(rs.next()){
                 String s = rs.getString(nameColumn);
-                System.out.println(s);
-                return s.substring(0,3) + (Integer.parseInt(s.substring(3,s.length()-1))+1);
+                System.out.println("HyuNie said: "+s);
+                return s.substring(0,3) + (Integer.parseInt(s.substring(3))+1);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -39,9 +39,9 @@
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Text>
-            <TextField fx:id="txtDob" prefHeight="64.0" GridPane.rowIndex="3" />
-            <TextField fx:id="txtName" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
-            <TextField fx:id="txtSoNguoiPhuThuoc" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
+            <TextField fx:id="txtDob" onKeyReleased="#formatDobInput" prefHeight="64.0" GridPane.rowIndex="3" />
+            <TextField fx:id="txtName" onKeyReleased="#restrictToLettersAndSpaces" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
+            <TextField fx:id="txtSoNguoiPhuThuoc" onKeyReleased="#formatSNPT" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Button fx:id="addNewStaff" layoutX="679.0" layoutY="778.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="192.0" text="THÊM">
@@ -78,7 +78,7 @@
                </font>
             </Text>
             <TextField fx:id="txtEmail" prefHeight="64.0" GridPane.rowIndex="3" />
-            <TextField fx:id="txtNumberPhone" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
+            <TextField fx:id="txtNumberPhone" onKeyReleased="#formatNumberPhone" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
             <TextField fx:id="txtAddress" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
          </children>
       </GridPane>
