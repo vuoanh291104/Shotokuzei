@@ -11,20 +11,10 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1582.0" style="-fx-background: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.listStaffOfAccountant">
+<ScrollPane fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1024.0" prefWidth="1582.0" style="-fx-background: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.listStaffOfAccountant">
     <content>
         <AnchorPane prefHeight="1024.0" prefWidth="1582.0">
             <children>
-                <TableView layoutX="98.0" layoutY="296.0" prefHeight="676.0" prefWidth="1389.0">
-                    <columns>
-                        <TableColumn prefWidth="86.0" resizable="false" styleClass="first-column" text="STT" />
-                        <TableColumn minWidth="0.0" prefWidth="262.0" resizable="false" text="Tên nhân viên" />
-                        <TableColumn prefWidth="262.0" resizable="false" text="Lương tháng" />
-                        <TableColumn prefWidth="257.0" resizable="false" text="Số người phụ thuộc" />
-                        <TableColumn prefWidth="262.0" resizable="false" text="Tổng giảm trừ" />
-                        <TableColumn prefWidth="259.0" resizable="false" styleClass="last-column" text="Thuế TNCN/ Tháng" />
-                    </columns>
-                </TableView>
                 <ComboBox fx:id="chooseYear" layoutX="115.0" layoutY="143.0" prefHeight="64.0" prefWidth="253.0" promptText="Chọn năm">
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -42,11 +32,28 @@
                     </opaqueInsets>
                 </ComboBox>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="115.0" layoutX="3.0" layoutY="1020.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1558.0" />
-            <Button fx:id="cacuTax" layoutX="1295.0" layoutY="143.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="192.0" text="TÍNH THUẾ" textFill="WHITE">
+            <Button fx:id="cacuTax" layoutX="703.0" layoutY="143.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="192.0" text="TÍNH THUẾ" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Button>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="599.0" layoutX="2358.0" layoutY="296.0" stroke="WHITE" strokeType="INSIDE" width="129.0" />
+            <TableView fx:id="listStaff" editable="true" layoutX="121.0" layoutY="290.0" prefHeight="676.0" prefWidth="2164.0">
+               <columns>
+                  <TableColumn fx:id="sttColumn" prefWidth="78.0" resizable="false" styleClass="first-column" text="STT" />
+                  <TableColumn fx:id="nameStaffColumn" minWidth="0.0" prefWidth="260.0" resizable="false" text="Tên nhân viên" />
+                  <TableColumn fx:id="salaryColumn" prefWidth="260.0" resizable="false" text="Lương tháng" />
+                  <TableColumn fx:id="dependentsColumn" prefWidth="260.0" resizable="false" text="Số người phụ thuộc" />
+                  <TableColumn fx:id="totalDeductionsColumn" prefWidth="260.0" resizable="false" text="Tổng giảm trừ" />
+                  <TableColumn fx:id="taxMonthColumn" prefWidth="253.0" resizable="false" text="Thuế TNCN/ Tháng" />
+                  <TableColumn fx:id="phoneColumn" prefWidth="260.0" resizable="false" text="Số điện thoại" />
+                  <TableColumn fx:id="emailColumn" prefWidth="272.0" resizable="false" text="Email" />
+                  <TableColumn fx:id="addressColumn" prefWidth="260.0" resizable="false" styleClass="last-column" text="Địa chỉ" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
