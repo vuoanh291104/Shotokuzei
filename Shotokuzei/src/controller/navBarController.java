@@ -109,19 +109,27 @@ public class navBarController {
     }
 
     public void ChangePassOnClick(){
-        try{
-            LoadView("changePass","");
-        }
-        catch (Exception e){
+        try {
+            if (selectedButton != null) {
+                selectedButton.getStyleClass().remove("selectedBtn");
+                selectedButton.getStyleClass().add("primary-btn");
+                selectedButton = null; // Xóa trạng thái nút được chọn
+            }
+            LoadView("changePass", "");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void MoveOnNotification(){
-        try{
-            LoadView("message","accountant");
-        }
-        catch (Exception e){
+        try {
+            if (selectedButton != null) {
+                selectedButton.getStyleClass().remove("selectedBtn");
+                selectedButton.getStyleClass().add("primary-btn");
+                selectedButton = null; // Xóa trạng thái nút được chọn
+            }
+            LoadView("message", "accountant");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
