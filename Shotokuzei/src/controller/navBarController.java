@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -20,17 +21,15 @@ import model.User;
 
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
 public class navBarController {
 
     public static PhongBan phongBan;
-
+    @FXML
+    private ImageView deletebtn;
     @FXML
     private AnchorPane generalScene;
     private Button selectedButton;
@@ -47,7 +46,57 @@ public class navBarController {
         if(AppController.getInstance().getUser().getRole().equals("Nhan Vien") || AppController.getInstance().getUser().getRole().equals("Truong phong")){
             getNameUser();
         }
+        deletebtn.setOnMouseClicked(event -> {
+            if(AlertController.alert(Alert.AlertType.CONFIRMATION,"Xác nhận","Bạn có chắc chắn xóa "+phongBan.getTenPhongBan()+" ?")){
+                try {
+                    // Xóa các bản ghi từ bảng notifications và payroll liên quan đến employees
+                    ResultSet rs = QueryController.getInstance().Query("select employee_id, user_id from taxdb.employees where department_id = '"+phongBan.getId()+"';");
+                    while (rs.next()) {
+                        String employeeId = rs.getString("employee_id");
+                        String userId = rs.getString("user_id");
 
+                        // Xóa dữ liệu trong bảng notifications liên quan đến employee_id
+                        QueryController.getInstance().InsertValue("delete from taxdb.notifications where employee_id = '"+employeeId+"';");
+
+                        // Xóa dữ liệu trong bảng payroll liên quan đến employee_id
+                        QueryController.getInstance().InsertValue("delete from taxdb.payroll where employee_id = '"+employeeId+"';");
+
+                        // Xóa dữ liệu trong bảng employees liên quan đến department_id
+                        QueryController.getInstance().InsertValue("delete from taxdb.employees where employee_id = '"+employeeId+"';");
+
+                        // Xóa dữ liệu trong bảng users liên quan đến user_id của employee
+                        QueryController.getInstance().InsertValue("delete from taxdb.users where user_id = '"+userId+"';");
+                    }
+                    // Cuối cùng xóa dữ liệu trong bảng departments
+                    QueryController.getInstance().InsertValue("delete from taxdb.departments where department_id = '"+phongBan.getId()+"';");
+                    // Xóa các bản ghi từ bảng notifications và payroll liên quan đến managers
+                    rs = QueryController.getInstance().Query("select manager_id, user_id from taxdb.managers where manager_id = '"+phongBan.getIdTruongPhong()+"';");
+                    while (rs.next()) {
+                        String managerId = rs.getString("manager_id");
+                        String managerUserId = rs.getString("user_id");
+
+                        // Xóa dữ liệu trong bảng notifications liên quan đến manager_id
+                        QueryController.getInstance().InsertValue("delete from taxdb.notifications where manager_id = '"+managerId+"';");
+
+                        // Xóa dữ liệu trong bảng payroll liên quan đến manager_id
+                        QueryController.getInstance().InsertValue("delete from taxdb.payroll where manager_id = '"+managerId+"';");
+
+                        // Xóa dữ liệu trong bảng managers
+                        QueryController.getInstance().InsertValue("delete from taxdb.managers where manager_id = '"+managerId+"';");
+
+                        // Xóa dữ liệu trong bảng users liên quan đến user_id của manager
+                        QueryController.getInstance().InsertValue("delete from taxdb.users where user_id = '"+managerUserId+"';");
+                    }
+
+                    // Điều hướng lại danh sách department
+                    gotoListDepartment(event);
+
+                } catch (IOException | SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        });
     }
     public void getNameUser(){
         String table ="";
@@ -168,7 +217,7 @@ public class navBarController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/accountant/listDepartments.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-
+        phongBan = null;
         String css = getClass().getResource("/view/css/style.css").toExternalForm();
         scene.getStylesheets().add(css);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

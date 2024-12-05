@@ -86,7 +86,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView fitHeight="73.14" fitWidth="64.0" layoutX="141.0" layoutY="707.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="deletebtn" fitHeight="40" fitWidth="35" layoutX="141.0" layoutY="707.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/trashCan.png" />
          </image>

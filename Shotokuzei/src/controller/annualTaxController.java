@@ -159,11 +159,9 @@ public class annualTaxController {
 
     public void getListStaffAnnual(int year){
 
-
         String queryE= "SELECT \n" +
                 "    e.fullname, \n" +
                 "    e.dependents, \n" +
-                "    p.employee_id, \n" +
                 "    SUM(p.salary) AS total_salary, \n" +
                 "    SUM(p.tax) AS total_tax, \n" +
                 "    SUM(d.dependents_fee * e.dependents + d.self_fee) AS total_deductions, " +
@@ -184,7 +182,6 @@ public class annualTaxController {
         String queryM = "SELECT \n" +
                 "    m.fullname, \n" +
                 "    m.dependents, \n" +
-                "    p.employee_id, \n" +
                 "    SUM(p.salary) AS total_salary, \n" +
                 "    SUM(p.tax) AS total_tax, \n" +
                 "    SUM(d.dependents_fee * m.dependents + d.self_fee) AS total_deductions, " +
