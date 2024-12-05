@@ -3,7 +3,6 @@
 <?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -79,12 +78,6 @@
             <Font name="Arial Bold" size="46.0" />
          </font>
       </Text>
-      <TextField fx:id="searchBox" layoutX="1430.0" layoutY="11.0" prefHeight="64.0" prefWidth="448.0" />
-      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="1817.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/searchImg.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="backBtn" fitHeight="46.0" fitWidth="46.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#gotoListDepartment" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/back.png" />

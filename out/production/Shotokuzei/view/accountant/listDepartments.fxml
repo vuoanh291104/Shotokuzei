@@ -32,8 +32,8 @@
           <RowConstraints minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField prefHeight="64.0" GridPane.rowIndex="1" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ cá nhân">
+            <TextField fx:id="txtMucGiamTruCaNhan" onKeyReleased="#handleMucGiamTruCaNhanAction" prefHeight="64.0" GridPane.rowIndex="1" focusTraversable="false"/>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ cá nhân (VNĐ)">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
@@ -49,15 +49,15 @@
             <RowConstraints minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <TextField prefHeight="64.0" GridPane.rowIndex="1" />
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ người phụ thuộc">
+            <TextField fx:id="txtMucGiamTruNguoiPhuThuoc" onKeyReleased="#handleMucGiamTruNguoiPhuThuocAction" prefHeight="64.0" GridPane.rowIndex="1" focusTraversable="false"/>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ người phụ thuộc (VNĐ)">
                <font>
                   <Font name="Arial" size="20.0" />
                </font>
             </Text>
          </children>
       </GridPane>
-      <Text fill="WHITE" layoutX="263.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ 2024" textAlignment="CENTER" wrappingWidth="500.0">
+      <Text fx:id="txtTitleMucGiamTru" fill="WHITE" layoutX="263.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mức giảm trừ 2024" textAlignment="CENTER" wrappingWidth="500.0">
          <font>
             <Font name="Arial Bold" size="36.0" />
          </font>
