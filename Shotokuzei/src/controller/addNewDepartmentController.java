@@ -205,9 +205,9 @@ public class addNewDepartmentController {
 
     public void createDepartment(){
         PhongBan phongBan = new PhongBan();
-        phongBan.setId(getNextID("departments","department_id"));
+        phongBan.setId(QueryController.getInstance().getNextID("departments", "department_id"));
         phongBan.setTenPhongBan(nameDepartment.getText());
-        phongBan.setIdTruongPhong(getNextID("departments","manager_id"));
+        phongBan.setIdTruongPhong(QueryController.getInstance().getNextID("departments", "manager_id"));
         String query="INSERT INTO departments(department_id, department_name, manager_id, accounting_id)\n" +
                 "VALUES('"+phongBan.getId()+"','"+phongBan.getTenPhongBan()+"','"+phongBan.getIdTruongPhong()+"','AC01');";
         QueryController.getInstance().InsertValue(query);
@@ -231,21 +231,6 @@ public class addNewDepartmentController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    public String getNextID(String nameTable, String nameColumn) {
-        ResultSet rs = QueryController.getInstance().Query("SELECT " + nameColumn + " FROM " + nameTable +
-                " ORDER BY CAST(SUBSTRING(" + nameColumn + ", 4) AS UNSIGNED) DESC LIMIT 1;");
-        try {
-            if(rs.next()){
-                String s = rs.getString(nameColumn);
-                System.out.println(s);
-                return s.substring(0,3) + (Integer.parseInt(s.substring(3,5))+1);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return null;
     }
 
     @FXML

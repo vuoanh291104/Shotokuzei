@@ -85,5 +85,13 @@
             <Image url="@../img/searchImg.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="backBtn" fitHeight="46.0" fitWidth="46.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#gotoListDepartment" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/back.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
     </children>
 </Pane>
