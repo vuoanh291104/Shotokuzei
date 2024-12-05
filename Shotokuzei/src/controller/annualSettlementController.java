@@ -166,7 +166,6 @@ public class annualSettlementController {
                 "    e.fullname, \n" +
                 "    e.dependents, \n" +
                 "    p.employee_id, \n" +
-                "    p.time_pay, \n" +
                 "    SUM(p.salary) AS total_salary, \n" +
                 "    SUM(p.tax) AS total_tax, \n" +
                 "    SUM(d.dependents_fee * e.dependents + d.self_fee) AS total_deductions, " +
