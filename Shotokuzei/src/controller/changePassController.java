@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -29,17 +30,31 @@ public class changePassController {
     @FXML
     private Text errorNewPass;
 
+    public void onInput(){
+        errorCurrentPass.setText("");
+        errorNewPass.setText("");
+    }
+
     public void HandleChangePass(ActionEvent event) {
         errorCurrentPass.setText("");
         errorNewPass.setText("");
+        if(currentPass.getText().isEmpty() || newPass.getText().isEmpty() || newPassAgain.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("");
+            alert.setHeaderText(null);
+            alert.setContentText("Cần nhập đầy đủ các thông tin nhập thiếu!");
+            alert.showAndWait();
+            return;
+        }
 
-        if (!checkCurrentPass()) {
+        if (!checkCurrentPass() ) {
             errorCurrentPass.setText("Mật khẩu hiện tại không đúng");
             return;
         }
 
         if (!checkNewPassAgain()) {
             errorNewPass.setText("Mật khẩu mới không khớp");
+
             return;
         }
 
@@ -65,16 +80,11 @@ public class changePassController {
     }
 
     public boolean checkCurrentPass() {
-        if (currentPass.getText().trim().isEmpty()) {
-            return false;
-        }
         return currentPass.getText().equals(getPassOfUser());
     }
 
     public boolean checkNewPassAgain() {
-        if (newPass.getText().trim().isEmpty() || newPassAgain.getText().trim().isEmpty()) {
-            return false;
-        }
+
         return newPass.getText().equals(newPassAgain.getText());
     }
 

@@ -2,10 +2,7 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import model.NhanVien;
 import model.Person;
@@ -40,6 +37,16 @@ public class infoController {
 
     public void initialize() {
 
+        TextFormatter<String> phoneFormatter = new TextFormatter<>(change -> {
+            // Kiểm tra xem thay đổi có phải là số
+            if (change.getText().matches("[0-9]*")) {
+                return change; // Nếu là số, cho phép thay đổi
+            }
+            return null; // Nếu không phải là số, từ chối thay đổi
+        });
+
+        // Áp dụng TextFormatter cho TextField phone
+        phone.setTextFormatter(phoneFormatter);
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0, 1);
         dependent.setValueFactory(valueFactory);
         getInfo();
@@ -47,6 +54,7 @@ public class infoController {
 
     }
     public  void EditOnClick(){
+        changeDependentTxt.setText("");
         phone.setDisable(false);
         dependent.setDisable(false);
         email.setDisable(false);
@@ -54,7 +62,49 @@ public class infoController {
         submitBtn.setDisable(false);
     }
 
+    private void showAlert(String title, String message) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public String validateFields() {
+        String phoneText = phone.getText().trim();
+        String emailText = email.getText().trim();
+        String addressText = address.getText();
+        int dependentValue = dependent.getValue();
+
+        // Kiểm tra các trường trống
+        if (phoneText.isEmpty() || emailText.isEmpty() || addressText.isEmpty() || dependentValue <= 0) {
+            return "Vui lòng điền đầy đủ các ô.";
+        }
+
+        // Kiểm tra định dạng email
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        if (!emailText.matches(emailRegex)) {
+            return "Email không hợp lệ.";
+        }
+
+        // Kiểm tra số điện thoại
+        String phoneRegex = "\\d{10}";
+        if (!phoneText.matches(phoneRegex)) {
+            return "Số điện thoại phải là số và có đúng 10 chữ số.";
+        }
+
+        // Nếu không có lỗi
+        return null;
+    }
+
     public void HandleSubmit(ActionEvent event){
+        String validationMessage = validateFields();
+
+        if(isExisted()) return;
+        if (validationMessage != null) {
+            // Hiển thị thông báo lỗi
+            showAlert("Lỗi", validationMessage);
+            return;
+        }
         checkHasChangeDependents();
         editInfo();
         email.setDisable(true);
@@ -139,13 +189,20 @@ public class infoController {
     }
 
     public boolean checkHasChangeDependents(){
+
+        System.out.println("currDep: " + currentDependents);
+
         int newDependent = dependent.getValue();
+        System.out.println("newDep1 : "+ newDependent);
         if (currentDependents == newDependent) {
+            deleteNoti();
+            getInfo();
             return false;
         } else {
             createNoti(newDependent);
 
         }
+        System.out.println("newDep2 : "+ newDependent);
         return true;
     }
 
@@ -217,6 +274,25 @@ public class infoController {
         return tempDependent;
     }
 
+    public void deleteNoti(){
+        ConnectDB connectDB = new ConnectDB();
+        Connection conn = connectDB.connect();
+        String query="DELETE FROM notifications \n" +
+                "WHERE "+getNameid()+" = '"+getPersonId()+"'";
+        Statement stm = null;
+        try {
+            stm = conn.createStatement();
+            int row = stm.executeUpdate(query);
+            if(row != 0){
+                System.out.println("Xóa thành công " + row);
+            }
+            tempDependent = 0;
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getNameid(){
         return AppController.getInstance().getUser().getRole().equals("Nhan Vien")?"employee_id":"manager_id";
     }
@@ -237,8 +313,35 @@ public class infoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return personId;
     }
+
+    public boolean isExisted(){
+        String query = "select phone, email from "+getTableOfRole()+" where user_id!='"+AppController.getInstance().getUser().getUserId()+"'";
+        System.out.println(query);
+        ResultSet rs = QueryController.getInstance().Query(query);
+        try {
+            while (rs.next()){
+                if(phone.getText().equals(rs.getString("phone"))){
+                    showAlert("","Số đện thoại này đã tồn tại");
+                    getInfo();
+                    return true;
+                }
+                if (email.getText().equals(rs.getString("email"))){
+                    showAlert("","email này đã tồn tại");
+                    getInfo();
+                    return true ;
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 
 
 }

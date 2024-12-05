@@ -34,7 +34,27 @@ public class loginController {
 
 
 
+
     public void HandleLogin (ActionEvent event) throws IOException{
+        if (userName.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi đăng nhập");
+            alert.setHeaderText(null);
+            alert.setContentText("Không được để tên đăng nhập trống!");
+            alert.showAndWait();
+
+            return;
+        }
+
+        if (password.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lỗi đăng nhập");
+            alert.setHeaderText(null);
+            alert.setContentText("Không được để mật khẩu trống!");
+            alert.showAndWait();
+
+            return;
+        }
         if(findUser()){
           if(AppController.getInstance().getUser().getRole().equals("Nhan Vien")){
                           root = FXMLLoader.load(getClass().getResource("/view/staff/general.fxml"));
@@ -66,8 +86,9 @@ public class loginController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "SELECT user_id, user_role FROM taxdb.users where username= ? and password= ?";
+        String query = "SELECT username, user_id, user_role FROM taxdb.users where username= ? and password= ?";
         PreparedStatement pstm = null;
+
 
         try{
             pstm = conn.prepareStatement(query);
@@ -76,6 +97,7 @@ public class loginController {
             pstm.setString(2,password.getText());
             ResultSet rs = pstm.executeQuery();
             while (rs.next()){
+
                 role = rs.getString("user_role");
                 userId = rs.getString("user_id");
                 AppController.getInstance().setUser(new User(userId,role));
@@ -85,6 +107,7 @@ public class loginController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return false;
     }
 }
