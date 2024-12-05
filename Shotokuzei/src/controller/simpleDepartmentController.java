@@ -6,22 +6,45 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.Money;
 import model.PhongBan;
 
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class simpleDepartmentController {
     @FXML
     private AnchorPane lsButton;
+    @FXML
+    private TextField txtMucGiamTruNguoiPhuThuoc;
+    @FXML
+    private TextField txtMucGiamTruCaNhan;
+    @FXML
+    private Text txtTitleMucGiamTru;
+    @FXML
+    private Button updateBtn;
 
     public void initialize() throws SQLException {
         LoadDepartments();
+        LoadMucGiamTru();
+        addActionToButton();
+    }
+
+    private void addActionToButton(){
+        updateBtn.setOnAction(event -> {
+            if(AlertController.alert(Alert.AlertType.INFORMATION,"Thông báo","Xác nhận thay đổi?")){
+                QueryController.getInstance().InsertValue("Update taxdb.deductions set dependents_fee = " + Money.unFormat(txtMucGiamTruNguoiPhuThuoc.getText())+", self_fee = " + Money.unFormat(txtMucGiamTruCaNhan.getText())+" where year_apply = " + LocalDate.now().getYear()+";");
+            }
+        });
     }
 
     public void LoadView(ActionEvent event) throws IOException{
@@ -39,6 +62,49 @@ public class simpleDepartmentController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void LoadMucGiamTru() throws SQLException {
+        int curYear = LocalDate.now().getYear();
+        txtTitleMucGiamTru.setText("Mức giảm trừ "+curYear);
+        ResultSet rs = QueryController.getInstance().Query("select dependents_fee, self_fee from taxdb.deductions where year_apply = "+curYear +";");
+        if (rs.next()){
+            txtMucGiamTruCaNhan.setText(Money.format(rs.getString("self_fee")));
+            txtMucGiamTruNguoiPhuThuoc.setText(Money.format(rs.getString("dependents_fee")));
+        }
+    }
+
+
+    @FXML
+    private void handleMucGiamTruCaNhanAction() {
+        formatMoneyInput(txtMucGiamTruCaNhan);
+    }
+
+    @FXML
+    private void handleMucGiamTruNguoiPhuThuocAction() {
+        formatMoneyInput(txtMucGiamTruNguoiPhuThuoc);
+    }
+
+    private void formatMoneyInput(TextField txtMoney){
+        String input = txtMoney.getText().replaceAll("[^\\d]", ""); // Loại bỏ tất cả ký tự không phải số
+
+        StringBuilder formattedInput = new StringBuilder();
+
+        int length = input.length();
+
+        // Duyệt qua chuỗi từ phải sang trái và thêm dấu chấm sau mỗi 3 chữ số
+        for (int i = 0; i < length; i++) {
+            if (i > 0 && i % 3 == 0) {
+                formattedInput.insert(0, "."); // Thêm dấu chấm vào đầu chuỗi
+            }
+            formattedInput.insert(0, input.charAt(length - 1 - i)); // Thêm từng ký tự từ cuối chuỗi
+        }
+
+        // Cập nhật giá trị trong TextField
+        txtMoney.setText(formattedInput.toString());
+
+        // Đặt con trỏ về cuối
+        txtMoney.positionCaret(formattedInput.length());
     }
 
     private void LoadDepartments() throws SQLException {

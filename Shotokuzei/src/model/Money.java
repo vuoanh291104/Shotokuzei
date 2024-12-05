@@ -8,7 +8,7 @@ public class Money {
         return df.format(Double.parseDouble(s.trim())).replace(',','.');
     }
 
-    public static Double unFormat(String s){
-        return Double.parseDouble(s.trim().replace(".",""));
+    public static int unFormat(String s){
+        return Integer.parseInt(s.trim().replace(".",""));
     }
 }
