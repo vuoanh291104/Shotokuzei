@@ -47,6 +47,10 @@ public class addStaffController {
                 AlertController.alert(Alert.AlertType.ERROR,"Error","Tên không được bỏ trống!");
                 return;
             }
+            if(txtName.getText().length() < 5){
+                AlertController.alert(Alert.AlertType.ERROR,"Error","Tên phải lớn hơn 4 ký tự! Vui lòng nhập đầy đủ Họ và Tên!");
+                return;
+            }
             if(txtNumberPhone.getText().isEmpty()){
                 AlertController.alert(Alert.AlertType.ERROR,"Error","Số điện thoại không được bỏ trống!");
                 return;
@@ -60,7 +64,7 @@ public class addStaffController {
                 return;
             }
 
-            if(!isValidDate(Integer.parseInt(txtDob.getText().substring(0,4)),Integer.parseInt(txtDob.getText().substring(5,7)),Integer.parseInt(txtDob.getText().substring(8)))){
+            if(!isValidDate(txtDob.getText())){
                 AlertController.alert(Alert.AlertType.ERROR,"Error","Ngày tháng năm sinh không hợp lệ hoặc đúng định dạng yyyy-MM-dd");
                 return;
             }
@@ -77,8 +81,16 @@ public class addStaffController {
                 AlertController.alert(Alert.AlertType.ERROR,"Error","Số người phụ thuộc không được bỏ trống!");
                 return;
             }
+            if(Integer.parseInt(txtSoNguoiPhuThuoc.getText())<0 || Integer.parseInt(txtSoNguoiPhuThuoc.getText())>10){
+                AlertController.alert(Alert.AlertType.ERROR,"Error","Số người phụ thuộc phải trong khoảng 0 - 10!");
+                return;
+            }
             if(txtAddress.getText().isEmpty()){
                 AlertController.alert(Alert.AlertType.ERROR,"Error","Địa chỉ không được bỏ trống!");
+                return;
+            }
+            if(txtAddress.getText().length() < 5){
+                AlertController.alert(Alert.AlertType.ERROR,"Error","Địa chỉ phải lớn hơn 4 ký tự!");
                 return;
             }
             NhanVien nv = new NhanVien();
@@ -99,10 +111,10 @@ public class addStaffController {
             resetTextFields();
         });
     }
-    public static boolean isValidDate(int year, int month, int day) {
+    public static boolean isValidDate(String dob) {
         try {
             // Tạo đối tượng LocalDate từ ngày, tháng, năm
-            LocalDate date = LocalDate.of(year, month, day);
+            java.time.LocalDate.parse(dob);
             return true; // Nếu không có lỗi, ngày hợp lệ
         } catch (DateTimeException e) {
             // Nếu xảy ra lỗi (ngày không hợp lệ), trả về false

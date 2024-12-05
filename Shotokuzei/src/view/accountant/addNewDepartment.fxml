@@ -48,8 +48,8 @@
                </font>
             </Text>
             <TextField fx:id="dobManager" onKeyReleased="#formatDobInput" prefHeight="64.0" GridPane.rowIndex="3" />
-            <TextField fx:id="nameManager" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
-            <TextField fx:id="dependentManager" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
+            <TextField fx:id="nameManager" onKeyReleased="#formatName" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
+            <TextField fx:id="dependentManager" onKeyReleased="#formatSNPT" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <GridPane layoutX="1099.0" layoutY="377.0" prefHeight="363.0" prefWidth="448.0" vgap="15.0">
@@ -81,8 +81,8 @@
                </font>
             </Text>
             <TextField fx:id="emailManager" prefHeight="64.0" GridPane.rowIndex="3" />
-            <TextField fx:id="phoneManager" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
-            <TextField fx:id="addressManager" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
+            <TextField fx:id="phoneManager" onKeyReleased="#formatNumberPhone" layoutX="10.0" layoutY="51.0" prefHeight="64.0" GridPane.rowIndex="1" />
+            <TextField fx:id="addressManager" onKeyReleased="#formatAddress" layoutX="10.0" layoutY="168.0" prefHeight="64.0" GridPane.rowIndex="5" />
          </children>
       </GridPane>
       <Text fill="#0965f4" layoutX="718.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên phòng ban">
@@ -90,7 +90,7 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Text>
-      <TextField fx:id="nameDepartment" layoutX="718.0" layoutY="238.0" prefHeight="64.0" prefWidth="448.0" />
+      <TextField fx:id="nameDepartment" onKeyReleased="#formatNameDepartment" layoutX="718.0" layoutY="238.0" prefHeight="64.0" prefWidth="448.0" />
       <Button fx:id="addNewDepartment" layoutX="779.0" layoutY="836.0" mnemonicParsing="false" onAction="#HandleAddNewDepartment" prefHeight="64.0" prefWidth="192.0" text="THÊM">
          <font>
             <Font name="Arial Bold" size="22.0" />
