@@ -37,7 +37,7 @@ public class annualSettlementController {
     private TableColumn<SalaryData,String> rsColumn;
     private ObservableList<SalaryData> listSalaryStaffAnnual = FXCollections.observableArrayList();
 
-    private int maxMonth=0;
+    private int totalMonth=0;
 
     public void initialize(){
         ViewChooseYear();
@@ -170,7 +170,7 @@ public class annualSettlementController {
                 "    SUM(p.salary) AS total_salary, \n" +
                 "    SUM(p.tax) AS total_tax, \n" +
                 "    SUM(d.dependents_fee * e.dependents + d.self_fee) AS total_deductions, " +
-                " max(month(p.time_pay)) as maxMonth " +
+                " COUNT(DISTINCT MONTH(p.time_pay)) AS total_months " +
                 "FROM \n" +
                 "    employees e \n" +
                 "JOIN \n" +
@@ -194,7 +194,7 @@ public class annualSettlementController {
 
             while (rs.next()){
                 SalaryData salaryData = new SalaryData();
-                maxMonth = rs.getInt("maxMonth");
+                totalMonth = rs.getInt("total_months");
                 TaxCalculator taxCalculator = new TaxCalculator();
                 salaryData.setName(rs.getString("e.fullname"));
                 salaryData.setSalary(rs.getInt("total_salary"));
@@ -237,7 +237,7 @@ public class annualSettlementController {
 
     public String getRsTax(int salary, int dependents, int year, int taxMonth){
         String rs="";
-        if(maxMonth == 12){
+        if(totalMonth == 12){
             TaxCalculator taxCalculator = new TaxCalculator();
             double taxAnnual = taxCalculator.taxAnnual(salary,dependents,year);
             int result = 0;
