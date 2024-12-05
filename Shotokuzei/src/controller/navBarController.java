@@ -155,4 +155,16 @@ public class navBarController {
             e.printStackTrace();
         }
     }
+
+    public void gotoListDepartment(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/accountant/listDepartments.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        String css = getClass().getResource("/view/css/style.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
 }
