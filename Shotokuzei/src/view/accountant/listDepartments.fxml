@@ -72,10 +72,5 @@
             <Font name="Arial Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="deleteDepartment" layoutX="1727.0" layoutY="123.0" mnemonicParsing="false" onAction="#HandleDelete" prefHeight="48.0" prefWidth="48.0" text="+" textFill="WHITE">
-         <font>
-            <Font name="Arial Bold" size="24.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
