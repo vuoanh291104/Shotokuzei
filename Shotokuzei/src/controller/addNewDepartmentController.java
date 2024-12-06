@@ -105,6 +105,18 @@ public class addNewDepartmentController {
     }
 
 
+    private boolean isNameDepartmentTonTai() {
+        ResultSet rs = QueryController.getInstance().Query("select * from taxdb.departments where LOWER(department_name) = '" + nameDepartment.getText().toLowerCase() + "';");
+        try {
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
+
     public boolean isValidEmail(String email) {
         if (email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             return true;
@@ -158,6 +170,11 @@ public class addNewDepartmentController {
     @FXML
     public void HandleAddNewDepartment(ActionEvent event) throws IOException {
         if (isAnyFieldEmpty()) {
+            return;
+        }
+
+        if(isNameDepartmentTonTai()){
+            AlertController.alert(Alert.AlertType.ERROR,"Cảnh báo","Tên phòng ban đã tồn tại!");
             return;
         }
 
