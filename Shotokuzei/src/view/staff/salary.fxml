@@ -49,7 +49,7 @@
                   <Font name="Arial Italic" size="24.0" />
                </font>
             </Text>
-            <Text fill="#0965f4" layoutX="1052.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ người phụ thuộc: 4.400.000đ" wrappingWidth="434.13671875">
+            <Text fx:id="giamTruNPT" fill="#0965f4" layoutX="1052.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ người phụ thuộc: 4.400.000đ" wrappingWidth="434.13671875">
                <font>
                   <Font name="Arial Italic" size="24.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <Text fill="#0965f4" layoutX="922.0" layoutY="1061.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giảm trừ cá nhân" textAlignment="CENTER" wrappingWidth="220.13671875">
+            <Text fx:id="giamTruCaNhan" fill="#0965f4" layoutX="922.0" layoutY="1061.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giảm trừ cá nhân" textAlignment="CENTER" wrappingWidth="220.13671875">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
