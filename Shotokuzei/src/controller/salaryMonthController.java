@@ -63,10 +63,11 @@ public class salaryMonthController {
 
     @FXML
     public void initialize() {
-        getGTru();
+
         ViewComboYear();
         setupTableColumns();
         getSalaryOfPerson(LocalDate.now().getYear());
+        getGTru();
     }
     public String formatNumber(int number) {
         if (number < 0) return "0";
@@ -164,10 +165,15 @@ public class salaryMonthController {
                 }
             }
         });
-        chooseYear.setOnAction(event -> getSalaryOfPerson(getSelectedYear()));
+        chooseYear.setOnAction(event -> {
+            getSalaryOfPerson(getSelectedYear());
+            getGTru();
+        });
+
 
     }
     public int getSelectedYear(){
+        System.out.println("year: "+ chooseYear.getValue());
         return chooseYear.getValue();
     }
 
@@ -300,7 +306,8 @@ public class salaryMonthController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "SELECT * FROM taxdb.deductions WHERE year_apply='" + currentYear + "'";
+        String query = "SELECT * FROM taxdb.deductions WHERE year_apply=" + getSelectedYear() ;
+        System.out.println(query);
         try (Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(query)) {
             while (rs.next()) {
                 gtCaNhan = rs.getInt("self_fee");
