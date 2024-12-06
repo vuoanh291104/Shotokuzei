@@ -6,9 +6,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -38,12 +35,12 @@
                         <Insets />
                     </opaqueInsets>
                 </ComboBox>
-                <Text fx:id="selfFeeTxt" fill="#0965f4" layoutX="115.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ cá nhân/ tháng: 11.000.000đ" wrappingWidth="534.13671875">
+                <Text fx:id="giamTruCaNhan" fill="#0965f4" layoutX="115.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ cá nhân/ tháng: 11.000.000đ" wrappingWidth="534.13671875">
                     <font>
                         <Font name="Arial Italic" size="24.0" />
                     </font>
                 </Text>
-                <Text fx:id="dependentFeeTxt" fill="#0965f4" layoutX="1052.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ người phụ thuộc: 4.400.000đ" wrappingWidth="434.13671875">
+                <Text fx:id="giamTruNPT" fill="#0965f4" layoutX="1052.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ người phụ thuộc: 4.400.000đ" wrappingWidth="434.13671875">
                     <font>
                         <Font name="Arial Italic" size="24.0" />
                     </font>
@@ -56,11 +53,6 @@
                   <Insets />
                </opaqueInsets>
             </ComboBox>
-            <TextField fx:id="searchBox" layoutX="1093.0" layoutY="25.0" prefHeight="64.0" prefWidth="448.0" />
-            <ImageView fitHeight="35.0" fitWidth="40.0" layoutX="1479.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/searchImg.png" />
-               </image></ImageView>
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />

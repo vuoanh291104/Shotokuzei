@@ -193,7 +193,7 @@ public class addStaffController {
     }
     @FXML
     private void restrictToLettersAndSpaces() {
-        String input = txtName.getText().replaceAll("[^a-zA-Z\\s]", ""); // Loại bỏ tất cả ký tự không phải chữ cái hoặc dấu cách
+        String input = txtName.getText().replaceAll("[^\\p{L}\\p{N}\\s]", ""); // Loại bỏ tất cả ký tự không phải chữ cái hoặc dấu cách
 
         // Cập nhật lại giá trị trong TextField
         txtName.setText(input);

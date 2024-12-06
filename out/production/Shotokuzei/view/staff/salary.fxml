@@ -44,7 +44,7 @@
                   <Font name="Arial Bold" size="22.0" />
                </font>
             </Button>
-            <Text fill="#0965f4" layoutX="115.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ cá nhân/ tháng: 11.000.000đ" wrappingWidth="534.13671875">
+            <Text fx:id="giamTruCaNhan" fill="#0965f4" layoutX="115.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Giảm trừ cá nhân/ tháng: 11.000.000đ" wrappingWidth="534.13671875">
                <font>
                   <Font name="Arial Italic" size="24.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Font name="Arial" size="24.0" />
                </font>
             </Text>
-            <Text fx:id="giamTruCaNhan" fill="#0965f4" layoutX="922.0" layoutY="1061.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giảm trừ cá nhân" textAlignment="CENTER" wrappingWidth="220.13671875">
+            <Text fill="#0965f4" layoutX="922.0" layoutY="1061.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giảm trừ cá nhân" textAlignment="CENTER" wrappingWidth="220.13671875">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
