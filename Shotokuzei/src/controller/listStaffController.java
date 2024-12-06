@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import model.Person;
 import model.SalaryData;
 import model.User;
@@ -24,6 +25,12 @@ public class listStaffController {
     private ComboBox<Integer> chooseYear;
     @FXML
     private ComboBox<Integer> chooseMonth;
+    @FXML
+    private Text giamTruCaNhan;
+    @FXML
+    private Text giamTruNPT;
+    private int gtCaNhan;
+    private int gtNPT;
 
     @FXML
     private TableView<SalaryData> listStaff;
@@ -51,6 +58,7 @@ public class listStaffController {
 
     @FXML
     public void initialize() {
+        getGTru();
         ViewComboYear();
         ViewComboMonth();
         setupTableColumns();
@@ -291,6 +299,23 @@ public class listStaffController {
         int dependentFee = YearFee.getDependentFee();
         int totalFee = selfFee + dependents*dependentFee;
         return totalFee;
+    }
+    public void getGTru() {
+        int currentYear = LocalDate.now().getYear();
+        ConnectDB connectDB = new ConnectDB();
+        Connection conn = connectDB.connect();
+
+        String query = "SELECT * FROM taxdb.deductions WHERE year_apply='" + currentYear + "'";
+        try (Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(query)) {
+            while (rs.next()) {
+                gtCaNhan = rs.getInt("self_fee");
+                gtNPT = rs.getInt("dependents_fee");
+            }
+            giamTruCaNhan.setText("*Giảm trừ thu nhập cá nhân/ tháng: " + formatNumber(gtCaNhan) + " đ");
+            giamTruNPT.setText("*Giảm trừ người phụ thuộc: " + formatNumber(gtNPT) + " đ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
