@@ -23,7 +23,7 @@ public class ThongBao {
             if(rs.next()){
                 if(rs.getString("manager_id") !=null && rs.getString("manager_id").equals(idNhanVien)){
                     QueryController.getInstance().InsertValue("Update taxdb.managers set dependents = " + newNPT + " where manager_id = '"+idNhanVien+"';");
-                }else if(rs.getString("manager_id") !=null && rs.getString("employee_id").equals(idNhanVien)){
+                }else if(rs.getString("employee_id") !=null && rs.getString("employee_id").equals(idNhanVien)){
                     QueryController.getInstance().InsertValue("Update taxdb.employees set dependents = " + newNPT + " where employee_id = '"+idNhanVien+"';");
                 }
             }
