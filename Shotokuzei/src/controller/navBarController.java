@@ -41,7 +41,16 @@ public class navBarController {
 
     public void initialize(){
         if(phongBan!=null && nameDepartment!=null){
-            nameDepartment.setText(phongBan.getTenPhongBan());
+            String nameTP = "";
+            ResultSet rs = QueryController.getInstance().Query("select fullname from taxdb.managers where manager_id = '"+phongBan.getIdTruongPhong()+"';");
+            try {
+                if(rs.next()){
+                    nameTP = rs.getString("fullname");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            nameDepartment.setText(phongBan.getTenPhongBan()+" - Trưởng phòng: "+nameTP);
         }
         if(AppController.getInstance().getUser().getRole().equals("Nhan Vien") || AppController.getInstance().getUser().getRole().equals("Truong phong")){
             getNameUser();
