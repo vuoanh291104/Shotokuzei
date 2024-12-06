@@ -23,6 +23,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class salaryMonthController {
+    @FXML
+    private Text giamTruCaNhan;
+    @FXML
+    private Text giamTruNPT;
+    private int gtCaNhan;
+    private int gtNPT;
 
     @FXML
     private ComboBox<Integer> chooseYear;
@@ -57,6 +63,7 @@ public class salaryMonthController {
 
     @FXML
     public void initialize() {
+        getGTru();
         ViewComboYear();
         setupTableColumns();
         getSalaryOfPerson(LocalDate.now().getYear());
@@ -287,5 +294,22 @@ public class salaryMonthController {
         }
 
 
+    }
+    public void getGTru() {
+        int currentYear = LocalDate.now().getYear();
+        ConnectDB connectDB = new ConnectDB();
+        Connection conn = connectDB.connect();
+
+        String query = "SELECT * FROM taxdb.deductions WHERE year_apply='" + currentYear + "'";
+        try (Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(query)) {
+            while (rs.next()) {
+                gtCaNhan = rs.getInt("self_fee");
+                gtNPT = rs.getInt("dependents_fee");
+            }
+            giamTruCaNhan.setText("*Giảm trừ thu nhập cá nhân/ tháng: " + formatNumber(gtCaNhan) + " đ");
+            giamTruNPT.setText("*Giảm trừ người phụ thuộc: " + formatNumber(gtNPT) + " đ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

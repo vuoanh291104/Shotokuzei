@@ -41,8 +41,12 @@ public class simpleDepartmentController {
 
     private void addActionToButton(){
         updateBtn.setOnAction(event -> {
-            if(AlertController.alert(Alert.AlertType.INFORMATION,"Thông báo","Xác nhận thay đổi?")){
-                QueryController.getInstance().InsertValue("Update taxdb.deductions set dependents_fee = " + Money.unFormat(txtMucGiamTruNguoiPhuThuoc.getText())+", self_fee = " + Money.unFormat(txtMucGiamTruCaNhan.getText())+" where year_apply = " + LocalDate.now().getYear()+";");
+            if(!txtMucGiamTruNguoiPhuThuoc.getText().isEmpty() && !txtMucGiamTruCaNhan.getText().isEmpty()){
+                if(AlertController.alert(Alert.AlertType.INFORMATION,"Thông báo","Xác nhận thay đổi?")){
+                    QueryController.getInstance().InsertValue("Update taxdb.deductions set dependents_fee = " + Money.unFormat(txtMucGiamTruNguoiPhuThuoc.getText())+", self_fee = " + Money.unFormat(txtMucGiamTruCaNhan.getText())+" where year_apply = " + LocalDate.now().getYear()+";");
+                }
+            }else{
+                AlertController.alert(Alert.AlertType.ERROR,"Cảnh báo","Không được bỏ trống mức giảm trừ cá nhân và mức giảm trừ người phụ thuộc!");
             }
         });
     }
