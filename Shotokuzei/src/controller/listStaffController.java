@@ -58,11 +58,12 @@ public class listStaffController {
 
     @FXML
     public void initialize() {
-        getGTru();
+
         ViewComboYear();
         ViewComboMonth();
         setupTableColumns();
         getListStaff(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
+        getGTru();
     }
 
     public String formatNumber(int number) {
@@ -109,7 +110,11 @@ public class listStaffController {
                 }
             }
         });
-        chooseYear.setOnAction(event -> getListStaff(getMonthSelected(),getYearSelected()) );
+        chooseYear.setOnAction(event -> {
+            getListStaff(getMonthSelected(),getYearSelected());
+            getGTru();
+        });
+
     }
     public void  ViewComboMonth(){
         int currentMonth = LocalDate.now().getMonthValue();
@@ -305,7 +310,7 @@ public class listStaffController {
         ConnectDB connectDB = new ConnectDB();
         Connection conn = connectDB.connect();
 
-        String query = "SELECT * FROM taxdb.deductions WHERE year_apply='" + currentYear + "'";
+        String query = "SELECT * FROM taxdb.deductions WHERE year_apply=" + getYearSelected() ;
         try (Statement stm = conn.createStatement(); ResultSet rs = stm.executeQuery(query)) {
             while (rs.next()) {
                 gtCaNhan = rs.getInt("self_fee");
