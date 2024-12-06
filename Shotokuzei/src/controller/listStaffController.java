@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
-import model.Person;
-import model.SalaryData;
-import model.User;
-import model.YearFee;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -252,12 +249,13 @@ public class listStaffController {
             ResultSet rs = stm.executeQuery(query);
             boolean hasData=false;
             while (rs.next()){
+                TaxCalculator taxCalculator = new TaxCalculator();
                 hasData=true;
                 SalaryData salaryData = new SalaryData();
 
                 salaryData.setName(rs.getString("e.fullname"));
                 salaryData.setDependents(rs.getInt("e.dependents"));
-                salaryData.setTax(rs.getInt("p.tax"));
+                salaryData.setTax((int) taxCalculator.taxMonthly(rs.getInt("p.salary"),rs.getInt("e.dependents"),getYearSelected()));
                 salaryData.setSalary(rs.getInt("p.salary"));
                 salaryData.setTotalDeductions(calculateDeductions(getYearSelected(),salaryData.getDependents()));
                 salaryData.setNumberPhone(rs.getString("e.phone"));

@@ -266,11 +266,12 @@ public class listStaffOfAccountant {
         try {
             ResultSet rsE = QueryController.getInstance().Query(queryE);
             while (rsE.next()) {
+                TaxCalculator taxCalculator1 = new TaxCalculator();
                 SalaryData salaryData1 = new SalaryData();
                 salaryData1.setStaffID(rsE.getString("e.employee_id"));
                 salaryData1.setName(rsE.getString("fullname"));
                 salaryData1.setDependents(rsE.getInt("dependents"));
-                salaryData1.setTax(rsE.getObject("tax") != null ? rsE.getInt("tax") : 0); // Nếu null thì mặc định là 0
+                salaryData1.setTax(rsE.getObject("tax") != null ? (int) taxCalculator1.taxMonthly(rsE.getInt("p.salary"),rsE.getInt("e.dependents"),getYearSelected()) : 0); // Nếu null thì mặc định là 0
                 salaryData1.setSalary(rsE.getObject("salary") != null ? rsE.getInt("salary") : 0); // Nếu null thì mặc định là 0
                 salaryData1.setTotalDeductions(calculateDeductions(getYearSelected(), salaryData1.getDependents()));
                 salaryData1.setNumberPhone(rsE.getString("phone"));
@@ -285,11 +286,12 @@ public class listStaffOfAccountant {
         try {
             ResultSet rsM = QueryController.getInstance().Query(queryM);
             while (rsM.next()) {
+                TaxCalculator taxCalculator2= new TaxCalculator();
                 SalaryData salaryData2 = new SalaryData();
                 salaryData2.setStaffID(rsM.getString("m.manager_id"));
                 salaryData2.setName(rsM.getString("m.fullname"));
                 salaryData2.setDependents(rsM.getInt("m.dependents"));
-                salaryData2.setTax(rsM.getObject("tax") != null ? rsM.getInt("tax") : 0); // Nếu null thì mặc định là 0
+                salaryData2.setTax(rsM.getObject("tax") != null ? (int) taxCalculator2.taxMonthly(rsM.getInt("p.salary"),rsM.getInt("m.dependents"),getYearSelected()) : 0); // Nếu null thì mặc định là 0
                 salaryData2.setSalary(rsM.getObject("salary") != null ? rsM.getInt("salary") : 0);
                 salaryData2.setTotalDeductions(calculateDeductions(getYearSelected(), salaryData2.getDependents()));
                 salaryData2.setNumberPhone(rsM.getString("m.phone"));
